@@ -3,1595 +3,2625 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bitung — Kota di Ujung Timur Sulawesi Utara</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500&family=Bebas+Neue&display=swap" rel="stylesheet">
+<title>Bitung — Kota Pelabuhan Permata Sulawesi Utara</title>
+<meta name="description" content="Jelajahi Kota Bitung, kota pelabuhan bersejarah di ujung timur Sulawesi Utara. Temukan keajaiban Selat Lembeh, kuliner khas, dan destinasi wisata terbaik.">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+
 <style>
-  :root {
-    --ocean: #0a3d5c;
-    --deep: #051e2e;
-    --teal: #0f7b8c;
-    --aqua: #1fb8cc;
-    --gold: #e8b84b;
-    --coral: #e85d3a;
-    --sand: #f5e6c8;
-    --white: #fafbfc;
-    --text: #1a1a2e;
-  }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--deep);
-    color: var(--white);
-    overflow-x: hidden;
-    cursor: none;
-  }
-
-  /* CUSTOM CURSOR */
-  .cursor {
-    width: 12px; height: 12px;
-    background: var(--aqua);
-    border-radius: 50%;
-    position: fixed;
-    pointer-events: none;
-    z-index: 9999;
-    transform: translate(-50%, -50%);
-    transition: width 0.2s, height 0.2s, background 0.2s;
-    mix-blend-mode: screen;
-  }
-  .cursor-ring {
-    width: 40px; height: 40px;
-    border: 1.5px solid rgba(31,184,204,0.5);
-    border-radius: 50%;
-    position: fixed;
-    pointer-events: none;
-    z-index: 9998;
-    transform: translate(-50%, -50%);
-    transition: all 0.08s ease;
-  }
-  body:hover .cursor { opacity: 1; }
-
-  /* SCROLLBAR */
-  ::-webkit-scrollbar { width: 4px; }
-  ::-webkit-scrollbar-track { background: var(--deep); }
-  ::-webkit-scrollbar-thumb { background: var(--teal); border-radius: 4px; }
-
-  /* NAV */
-  nav {
-    position: fixed; top: 0; left: 0; right: 0;
-    z-index: 100;
-    padding: 20px 5%;
-    display: flex; justify-content: space-between; align-items: center;
-    transition: all 0.4s;
-  }
-  nav.scrolled {
-    background: rgba(5,30,46,0.92);
-    backdrop-filter: blur(20px);
-    padding: 14px 5%;
-    border-bottom: 1px solid rgba(31,184,204,0.15);
-  }
-  .nav-logo {
-    font-family: 'Bebas Neue', cursive;
-    font-size: clamp(22px, 3vw, 30px);
-    letter-spacing: 4px;
-    color: var(--aqua);
-    text-decoration: none;
-  }
-  .nav-logo span { color: var(--gold); }
-  .nav-links { display: flex; gap: 32px; list-style: none; }
-  .nav-links a {
-    color: rgba(255,255,255,0.75);
-    text-decoration: none;
-    font-size: 13px;
-    font-weight: 500;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    transition: color 0.3s;
-    position: relative;
-  }
-  .nav-links a::after {
-    content: '';
-    position: absolute; bottom: -4px; left: 0;
-    width: 0; height: 1px;
-    background: var(--aqua);
-    transition: width 0.3s;
-  }
-  .nav-links a:hover { color: var(--aqua); }
-  .nav-links a:hover::after { width: 100%; }
-
-  /* HAMBURGER */
-  .hamburger {
-    display: none;
-    flex-direction: column;
-    gap: 5px;
-    cursor: pointer;
-    padding: 8px;
-    z-index: 200;
-  }
-  .hamburger span {
-    display: block; width: 24px; height: 2px;
-    background: var(--aqua);
-    transition: all 0.3s;
-  }
-  .hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
-  .hamburger.open span:nth-child(2) { opacity: 0; }
-  .hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
-
-  /* MOBILE MENU */
-  .mobile-menu {
-    display: none;
-    position: fixed; inset: 0;
-    background: rgba(5,30,46,0.97);
-    backdrop-filter: blur(20px);
-    z-index: 150;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 40px;
-    opacity: 0;
-    transition: opacity 0.3s;
-  }
-  .mobile-menu.open { opacity: 1; }
-  .mobile-menu a {
-    font-family: 'Bebas Neue', cursive;
-    font-size: 40px;
-    letter-spacing: 6px;
-    color: var(--white);
-    text-decoration: none;
-    transition: color 0.3s;
-  }
-  .mobile-menu a:hover { color: var(--aqua); }
-
-  /* HERO */
-  #hero {
-    min-height: 100vh;
-    position: relative;
-    display: flex; align-items: center;
-    overflow: hidden;
-  }
-
-  .hero-bg {
-    position: absolute; inset: 0;
-    background: 
-      radial-gradient(ellipse at 20% 50%, rgba(15,123,140,0.25) 0%, transparent 60%),
-      radial-gradient(ellipse at 80% 20%, rgba(232,184,75,0.1) 0%, transparent 50%),
-      linear-gradient(135deg, #030f1a 0%, #051e2e 40%, #0a3d5c 100%);
-  }
-
-  .hero-grid {
-    position: absolute; inset: 0;
-    background-image: 
-      linear-gradient(rgba(31,184,204,0.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(31,184,204,0.04) 1px, transparent 1px);
-    background-size: 60px 60px;
-    animation: gridMove 20s linear infinite;
-  }
-  @keyframes gridMove {
-    from { transform: translateY(0); }
-    to { transform: translateY(60px); }
-  }
-
-  .hero-orbs {
-    position: absolute; inset: 0; overflow: hidden;
-  }
-  .orb {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(80px);
-    animation: orbFloat 8s ease-in-out infinite;
-  }
-  .orb-1 {
-    width: 400px; height: 400px;
-    background: rgba(15,123,140,0.2);
-    top: -100px; right: 10%;
-    animation-delay: 0s;
-  }
-  .orb-2 {
-    width: 300px; height: 300px;
-    background: rgba(232,184,75,0.12);
-    bottom: 10%; left: 5%;
-    animation-delay: 3s;
-  }
-  .orb-3 {
-    width: 200px; height: 200px;
-    background: rgba(232,93,58,0.1);
-    top: 40%; left: 40%;
-    animation-delay: 5s;
-  }
-  @keyframes orbFloat {
-    0%, 100% { transform: translateY(0) scale(1); }
-    50% { transform: translateY(-30px) scale(1.05); }
-  }
-
-  .hero-content {
-    position: relative;
-    padding: 0 5%;
-    max-width: 1400px;
-    margin: 0 auto;
-    width: 100%;
-    padding-top: 100px;
-  }
-
-  .hero-tag {
-    display: inline-flex; align-items: center; gap: 10px;
-    font-size: 12px; font-weight: 500;
-    letter-spacing: 3px; text-transform: uppercase;
-    color: var(--aqua);
-    margin-bottom: 24px;
-    opacity: 0;
-    animation: fadeUp 0.8s ease forwards 0.3s;
-  }
-  .hero-tag::before {
-    content: '';
-    width: 30px; height: 1px;
-    background: var(--aqua);
-  }
-
-  .hero-title {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(60px, 10vw, 130px);
-    font-weight: 900;
-    line-height: 0.9;
-    margin-bottom: 10px;
-    opacity: 0;
-    animation: fadeUp 0.9s ease forwards 0.5s;
-  }
-  .hero-title .line-1 { 
-    display: block; 
-    color: var(--white);
-    letter-spacing: -2px;
-  }
-  .hero-title .line-2 {
-    display: block;
-    color: transparent;
-    -webkit-text-stroke: 1.5px rgba(31,184,204,0.6);
-    letter-spacing: -2px;
-  }
-  .hero-title .line-3 {
-    display: block;
-    font-style: italic;
-    font-size: 0.55em;
-    color: var(--gold);
-    letter-spacing: 2px;
-    margin-top: 8px;
-  }
-
-  .hero-subtitle {
-    max-width: 480px;
-    font-size: clamp(15px, 1.8vw, 18px);
-    line-height: 1.7;
-    color: rgba(255,255,255,0.6);
-    margin: 32px 0 48px;
-    font-weight: 300;
-    opacity: 0;
-    animation: fadeUp 0.9s ease forwards 0.7s;
-  }
-
-  .hero-cta {
-    display: flex; gap: 20px; flex-wrap: wrap;
-    opacity: 0;
-    animation: fadeUp 0.9s ease forwards 0.9s;
-  }
-  .btn-primary {
-    display: inline-flex; align-items: center; gap: 10px;
-    padding: 16px 36px;
-    background: var(--aqua);
-    color: var(--deep);
-    font-weight: 600;
-    font-size: 14px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    text-decoration: none;
-    border-radius: 4px;
-    transition: all 0.3s;
-    position: relative;
-    overflow: hidden;
-  }
-  .btn-primary::before {
-    content: '';
-    position: absolute; inset: 0;
-    background: rgba(255,255,255,0.2);
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.3s;
-  }
-  .btn-primary:hover::before { transform: scaleX(1); }
-  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(31,184,204,0.4); }
-
-  .btn-outline {
-    display: inline-flex; align-items: center; gap: 10px;
-    padding: 16px 36px;
-    border: 1px solid rgba(255,255,255,0.25);
-    color: var(--white);
-    font-weight: 500;
-    font-size: 14px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    text-decoration: none;
-    border-radius: 4px;
-    transition: all 0.3s;
-  }
-  .btn-outline:hover {
-    border-color: var(--aqua);
-    color: var(--aqua);
-    transform: translateY(-2px);
-  }
-
-  .hero-stats {
-    display: flex; gap: clamp(20px, 4vw, 60px);
-    margin-top: 80px;
-    padding-top: 40px;
-    border-top: 1px solid rgba(255,255,255,0.08);
-    opacity: 0;
-    animation: fadeUp 0.9s ease forwards 1.1s;
-    flex-wrap: wrap;
-  }
-  .stat-item {}
-  .stat-num {
-    font-family: 'Bebas Neue', cursive;
-    font-size: clamp(36px, 5vw, 52px);
-    color: var(--aqua);
-    line-height: 1;
-    letter-spacing: 2px;
-  }
-  .stat-label {
-    font-size: 12px;
-    color: rgba(255,255,255,0.5);
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    margin-top: 4px;
-  }
-
-  .hero-scroll {
-    position: absolute;
-    bottom: 40px; right: 5%;
-    display: flex; flex-direction: column; align-items: center; gap: 8px;
-    color: rgba(255,255,255,0.4);
-    font-size: 11px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    writing-mode: vertical-rl;
-    opacity: 0;
-    animation: fadeIn 1s ease forwards 1.5s;
-  }
-  .hero-scroll::after {
-    content: '';
-    width: 1px; height: 60px;
-    background: linear-gradient(to bottom, transparent, var(--aqua));
-    animation: scrollLine 2s ease-in-out infinite;
-  }
-  @keyframes scrollLine {
-    0% { transform: scaleY(0); transform-origin: top; }
-    50% { transform: scaleY(1); transform-origin: top; }
-    51% { transform: scaleY(1); transform-origin: bottom; }
-    100% { transform: scaleY(0); transform-origin: bottom; }
-  }
-
-  /* WAVE DIVIDER */
-  .wave {
-    width: 100%;
-    line-height: 0;
-    overflow: hidden;
-  }
-
-  /* ABOUT */
-  #tentang {
-    background: var(--white);
-    color: var(--text);
-    padding: 120px 5%;
-    position: relative;
-    overflow: hidden;
-  }
-  #tentang::before {
-    content: 'BITUNG';
-    position: absolute;
-    font-family: 'Bebas Neue', cursive;
-    font-size: clamp(80px, 18vw, 220px);
-    color: rgba(10,61,92,0.04);
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    white-space: nowrap;
-    pointer-events: none;
-  }
-
-  .about-inner {
-    max-width: 1400px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 80px;
-    align-items: center;
-    position: relative;
-  }
-
-  .section-tag {
-    display: inline-flex; align-items: center; gap: 10px;
-    font-size: 11px; font-weight: 600;
-    letter-spacing: 4px; text-transform: uppercase;
-    color: var(--teal);
-    margin-bottom: 20px;
-  }
-  .section-tag::before {
-    content: '';
-    width: 24px; height: 2px;
-    background: var(--teal);
-  }
-
-  .section-title {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(36px, 4.5vw, 58px);
-    font-weight: 700;
-    line-height: 1.1;
-    color: var(--ocean);
-    margin-bottom: 28px;
-    letter-spacing: -1px;
-  }
-  .section-title em { color: var(--teal); font-style: italic; }
-
-  .about-text p {
-    font-size: 16px;
-    line-height: 1.85;
-    color: rgba(26,26,46,0.7);
-    margin-bottom: 20px;
-    font-weight: 300;
-  }
-  .about-text strong { color: var(--ocean); font-weight: 600; }
-
-  .about-img-wrap {
-    position: relative;
-  }
-  .about-img-stack {
-    position: relative;
-    height: 500px;
-  }
-  .about-img {
-    border-radius: 8px;
-    overflow: hidden;
-    position: absolute;
-    box-shadow: 0 30px 80px rgba(10,61,92,0.2);
-  }
-  .about-img img {
-    width: 100%; height: 100%;
-    object-fit: cover;
-    transition: transform 0.5s ease;
-  }
-  .about-img:hover img { transform: scale(1.04); }
-  .about-img-main {
-    width: 75%; height: 380px;
-    top: 0; right: 0;
-  }
-  .about-img-accent {
-    width: 55%; height: 260px;
-    bottom: 0; left: 0;
-    z-index: 2;
-    border: 4px solid var(--white);
-  }
-  .about-badge {
-    position: absolute;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 3;
-    background: var(--ocean);
-    color: var(--white);
-    width: 100px; height: 100px;
-    border-radius: 50%;
-    display: flex; flex-direction: column;
-    align-items: center; justify-content: center;
-    text-align: center;
-    border: 3px solid var(--aqua);
-    box-shadow: 0 0 40px rgba(31,184,204,0.3);
-  }
-  .about-badge span:first-child {
-    font-family: 'Bebas Neue', cursive;
-    font-size: 28px; letter-spacing: 1px;
-    color: var(--aqua);
-  }
-  .about-badge span:last-child {
-    font-size: 9px; letter-spacing: 2px;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.6);
-  }
-
-  /* GALLERY */
-  #galeri {
-    background: var(--deep);
-    padding: 120px 5%;
-    overflow: hidden;
-  }
-  .gallery-header {
-    max-width: 1400px;
-    margin: 0 auto 60px;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    flex-wrap: wrap;
-    gap: 20px;
-  }
-  .gallery-header .section-title { color: var(--white); margin-bottom: 0; }
-
-  .gallery-tabs {
-    display: flex; gap: 8px; flex-wrap: wrap;
-  }
-  .tab {
-    padding: 8px 20px;
-    border: 1px solid rgba(255,255,255,0.15);
-    border-radius: 100px;
-    background: transparent;
-    color: rgba(255,255,255,0.5);
-    font-size: 13px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.3s;
-    font-family: 'DM Sans', sans-serif;
-  }
-  .tab.active, .tab:hover {
-    background: var(--aqua);
-    border-color: var(--aqua);
-    color: var(--deep);
-  }
-
-  .gallery-grid {
-    max-width: 1400px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    grid-template-rows: auto;
-    gap: 16px;
-  }
-
-  .g-item {
-    border-radius: 8px;
-    overflow: hidden;
-    position: relative;
-    cursor: pointer;
-    background: rgba(255,255,255,0.05);
-  }
-  .g-item img {
-    width: 100%; height: 100%;
-    object-fit: cover;
-    display: block;
-    transition: transform 0.6s ease;
-  }
-  .g-item:hover img { transform: scale(1.06); }
-
-  .g-item .g-overlay {
-    position: absolute; inset: 0;
-    background: linear-gradient(to top, rgba(5,30,46,0.85) 0%, transparent 60%);
-    opacity: 0;
-    transition: opacity 0.4s;
-    display: flex; align-items: flex-end;
-    padding: 20px;
-  }
-  .g-item:hover .g-overlay { opacity: 1; }
-
-  .g-overlay-text h4 {
-    font-family: 'Playfair Display', serif;
-    font-size: 18px; font-weight: 700;
-    color: var(--white);
-  }
-  .g-overlay-text p {
-    font-size: 12px; color: var(--aqua);
-    letter-spacing: 2px; text-transform: uppercase;
-    margin-top: 4px;
-  }
-
-  .g-1 { grid-column: 1 / 6; grid-row: 1; height: 280px; }
-  .g-2 { grid-column: 6 / 9; grid-row: 1; height: 280px; }
-  .g-3 { grid-column: 9 / 13; grid-row: 1; height: 280px; }
-  .g-4 { grid-column: 1 / 4; grid-row: 2; height: 240px; }
-  .g-5 { grid-column: 4 / 8; grid-row: 2; height: 240px; }
-  .g-6 { grid-column: 8 / 13; grid-row: 2; height: 240px; }
-
-  /* DESTINASI */
-  #destinasi {
-    background: var(--sand);
-    color: var(--text);
-    padding: 120px 5%;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .dest-header {
-    max-width: 1400px;
-    margin: 0 auto 70px;
-    text-align: center;
-  }
-  .dest-header .section-tag { justify-content: center; }
-  .dest-header .section-title { font-size: clamp(38px, 5vw, 64px); }
-
-  .dest-grid {
-    max-width: 1400px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 24px;
-  }
-
-  .dest-card {
-    background: var(--white);
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 4px 30px rgba(10,61,92,0.08);
-    transition: all 0.4s;
-    position: relative;
-  }
-  .dest-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 20px 60px rgba(10,61,92,0.15);
-  }
-
-  .dest-img {
-    height: 220px; overflow: hidden;
-    position: relative;
-  }
-  .dest-img img {
-    width: 100%; height: 100%;
-    object-fit: cover;
-    transition: transform 0.5s;
-  }
-  .dest-card:hover .dest-img img { transform: scale(1.06); }
-
-  .dest-cat {
-    position: absolute;
-    top: 16px; left: 16px;
-    padding: 5px 14px;
-    background: var(--ocean);
-    color: var(--aqua);
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    border-radius: 4px;
-  }
-
-  .dest-body { padding: 24px; }
-  .dest-body h3 {
-    font-family: 'Playfair Display', serif;
-    font-size: 22px; font-weight: 700;
-    color: var(--ocean);
-    margin-bottom: 10px;
-  }
-  .dest-body p {
-    font-size: 14px; color: rgba(26,26,46,0.65);
-    line-height: 1.7; margin-bottom: 20px;
-  }
-  .dest-meta {
-    display: flex; justify-content: space-between; align-items: center;
-  }
-  .dest-rating {
-    display: flex; align-items: center; gap: 6px;
-    font-size: 13px; font-weight: 600; color: var(--ocean);
-  }
-  .stars { color: var(--gold); font-size: 14px; }
-  .dest-link {
-    font-size: 12px; font-weight: 600;
-    letter-spacing: 1px; text-transform: uppercase;
-    color: var(--teal);
-    text-decoration: none;
-    display: flex; align-items: center; gap: 6px;
-    transition: gap 0.3s;
-  }
-  .dest-link:hover { gap: 10px; }
-
-  /* KULINER */
-  #kuliner {
-    background: var(--ocean);
-    padding: 120px 5%;
-    position: relative;
-    overflow: hidden;
-  }
-  #kuliner::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 100%;
-    background: 
-      radial-gradient(ellipse at 90% 50%, rgba(232,184,75,0.08) 0%, transparent 60%),
-      radial-gradient(ellipse at 10% 80%, rgba(31,184,204,0.1) 0%, transparent 50%);
-    pointer-events: none;
-  }
-
-  .food-header {
-    max-width: 1400px;
-    margin: 0 auto 70px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 60px;
-    align-items: center;
-  }
-  .food-header .section-title { color: var(--white); }
-
-  .food-desc {
-    font-size: 16px;
-    line-height: 1.8;
-    color: rgba(255,255,255,0.65);
-    font-weight: 300;
-  }
-
-  .food-grid {
-    max-width: 1400px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 20px;
-  }
-
-  .food-card {
-    background: rgba(255,255,255,0.07);
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 12px;
-    overflow: hidden;
-    transition: all 0.3s;
-    backdrop-filter: blur(10px);
-  }
-  .food-card:hover {
-    background: rgba(255,255,255,0.12);
-    transform: translateY(-4px);
-    border-color: rgba(31,184,204,0.3);
-    box-shadow: 0 20px 50px rgba(0,0,0,0.2);
-  }
-  .food-img {
-    height: 180px; overflow: hidden;
-  }
-  .food-img img {
-    width: 100%; height: 100%;
-    object-fit: cover;
-    transition: transform 0.4s;
-  }
-  .food-card:hover .food-img img { transform: scale(1.06); }
-  .food-body { padding: 20px; }
-  .food-body h4 {
-    font-family: 'Playfair Display', serif;
-    font-size: 20px;
-    color: var(--white);
-    margin-bottom: 8px;
-  }
-  .food-body p {
-    font-size: 13px;
-    color: rgba(255,255,255,0.55);
-    line-height: 1.6;
-  }
-  .food-tag {
-    display: inline-block;
-    margin-top: 12px;
-    padding: 4px 12px;
-    background: rgba(31,184,204,0.15);
-    border: 1px solid rgba(31,184,204,0.3);
-    border-radius: 100px;
-    font-size: 11px;
-    color: var(--aqua);
-    letter-spacing: 1px;
-    text-transform: uppercase;
-  }
-
-  /* MAP / INFO */
-  #info {
-    background: var(--deep);
-    padding: 120px 5%;
-    position: relative;
-  }
-  .info-inner {
-    max-width: 1400px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 80px;
-    align-items: center;
-  }
-  .info-left .section-title { color: var(--white); }
-
-  .info-cards {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-    margin-top: 40px;
-  }
-  .info-card {
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 10px;
-    padding: 24px;
-    transition: all 0.3s;
-  }
-  .info-card:hover {
-    background: rgba(31,184,204,0.08);
-    border-color: rgba(31,184,204,0.25);
-    transform: translateY(-3px);
-  }
-  .info-icon {
-    font-size: 28px;
-    margin-bottom: 12px;
-  }
-  .info-card h4 {
-    font-size: 14px;
-    font-weight: 600;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    color: var(--aqua);
-    margin-bottom: 6px;
-  }
-  .info-card p {
-    font-size: 14px;
-    color: rgba(255,255,255,0.6);
-    line-height: 1.6;
-  }
-
-  .map-container {
-    border-radius: 16px;
-    overflow: hidden;
-    position: relative;
-    box-shadow: 0 30px 80px rgba(0,0,0,0.4);
-  }
-  .map-container iframe {
-    width: 100%; height: 450px;
-    border: none;
-    display: block;
-    filter: invert(90%) hue-rotate(180deg) saturate(0.7);
-  }
-  .map-overlay {
-    position: absolute;
-    top: 20px; left: 20px;
-    background: rgba(5,30,46,0.9);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(31,184,204,0.3);
-    border-radius: 8px;
-    padding: 16px 20px;
-    color: var(--white);
-  }
-  .map-overlay strong {
-    display: block;
-    font-size: 14px; font-weight: 600;
-    color: var(--aqua);
-  }
-  .map-overlay span {
-    font-size: 12px;
-    color: rgba(255,255,255,0.6);
-  }
-
-  /* LIGHTBOX */
-  .lightbox {
-    position: fixed; inset: 0;
-    background: rgba(3,10,20,0.95);
-    backdrop-filter: blur(20px);
-    z-index: 1000;
-    display: flex; align-items: center; justify-content: center;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s;
-  }
-  .lightbox.open {
-    opacity: 1;
-    pointer-events: all;
-  }
-  .lightbox img {
-    max-width: 90vw;
-    max-height: 85vh;
-    object-fit: contain;
-    border-radius: 8px;
-    box-shadow: 0 40px 100px rgba(0,0,0,0.6);
-    transform: scale(0.9);
-    transition: transform 0.3s;
-  }
-  .lightbox.open img { transform: scale(1); }
-  .lb-close {
-    position: absolute;
-    top: 24px; right: 24px;
-    background: rgba(255,255,255,0.1);
-    border: 1px solid rgba(255,255,255,0.2);
-    color: var(--white);
-    width: 44px; height: 44px;
-    border-radius: 50%;
-    font-size: 20px;
-    cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    transition: all 0.3s;
-    font-family: sans-serif;
-  }
-  .lb-close:hover { background: var(--coral); border-color: var(--coral); }
-  .lb-caption {
-    position: absolute;
-    bottom: 30px; left: 50%;
-    transform: translateX(-50%);
-    text-align: center;
-    color: rgba(255,255,255,0.7);
-    font-size: 14px;
-  }
-  .lb-caption strong {
-    display: block;
-    color: var(--white);
-    font-size: 18px;
-    font-family: 'Playfair Display', serif;
-    margin-bottom: 4px;
-  }
-
-  /* FOOTER */
-  footer {
-    background: #020c14;
-    padding: 80px 5% 40px;
-    border-top: 1px solid rgba(255,255,255,0.06);
-  }
-  .footer-inner {
-    max-width: 1400px;
-    margin: 0 auto;
-  }
-  .footer-top {
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr 1fr;
-    gap: 60px;
-    margin-bottom: 60px;
-  }
-  .footer-brand .nav-logo {
-    font-size: 32px;
-    display: block;
-    margin-bottom: 16px;
-  }
-  .footer-brand p {
-    font-size: 14px;
-    color: rgba(255,255,255,0.45);
-    line-height: 1.8;
-    max-width: 280px;
-  }
-
-  .footer-col h5 {
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--aqua);
-    margin-bottom: 20px;
-  }
-  .footer-col ul { list-style: none; }
-  .footer-col ul li { margin-bottom: 12px; }
-  .footer-col ul a {
-    font-size: 14px;
-    color: rgba(255,255,255,0.45);
-    text-decoration: none;
-    transition: color 0.3s;
-  }
-  .footer-col ul a:hover { color: var(--white); }
-
-  .footer-bottom {
-    padding-top: 30px;
-    border-top: 1px solid rgba(255,255,255,0.06);
-    display: flex; justify-content: space-between; align-items: center;
-    flex-wrap: wrap; gap: 16px;
-  }
-  .footer-bottom p { font-size: 13px; color: rgba(255,255,255,0.3); }
-  .footer-bottom p span { color: var(--aqua); }
-
-  /* ANIMATIONS */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
-
-  .reveal {
-    opacity: 0;
-    transform: translateY(40px);
-    transition: opacity 0.8s ease, transform 0.8s ease;
-  }
-  .reveal.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  .reveal-delay-1 { transition-delay: 0.1s; }
-  .reveal-delay-2 { transition-delay: 0.2s; }
-  .reveal-delay-3 { transition-delay: 0.3s; }
-  .reveal-delay-4 { transition-delay: 0.4s; }
-
-  /* RESPONSIVE */
-  @media (max-width: 900px) {
-    .nav-links { display: none; }
-    .hamburger { display: flex; }
-    .mobile-menu { display: flex; }
-
-    .about-inner { grid-template-columns: 1fr; gap: 50px; }
-    .about-img-stack { height: 340px; }
-    .about-img-main { width: 80%; height: 280px; }
-    .about-img-accent { width: 60%; height: 200px; }
-
-    .food-header { grid-template-columns: 1fr; gap: 20px; }
-
-    .info-inner { grid-template-columns: 1fr; gap: 50px; }
-    .map-container iframe { height: 320px; }
-
-    .footer-top { grid-template-columns: 1fr 1fr; gap: 40px; }
-  }
+/* ============================================================
+   ROOT VARIABLES
+   ============================================================ */
+:root {
+  --ocean:    #0a3d5c;
+  --deep:     #051e2e;
+  --deeper:   #030f1a;
+  --teal:     #0f7b8c;
+  --aqua:     #1fb8cc;
+  --aqua-dim: rgba(31,184,204,0.15);
+  --gold:     #e8b84b;
+  --gold-dim: rgba(232,184,75,0.15);
+  --coral:    #e85d3a;
+  --sand:     #f5e6c8;
+  --cream:    #fdf6ec;
+  --white:    #fafbfc;
+  --text:     #1a1a2e;
+  --muted:    rgba(26,26,46,0.6);
+  --border:   rgba(31,184,204,0.15);
+  --border-w: rgba(255,255,255,0.1);
+  --glass:    rgba(5,30,46,0.7);
+  --radius:   12px;
+  --radius-lg:20px;
+  --shadow:   0 20px 60px rgba(0,0,0,0.25);
+  --shadow-lg:0 40px 100px rgba(0,0,0,0.4);
+  --transition: 0.35s cubic-bezier(0.4,0,0.2,1);
+}
+
+/* ============================================================
+   RESET & BASE
+   ============================================================ */
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; font-size:16px; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--deeper);
+  color: var(--white);
+  overflow-x: hidden;
+  cursor: none;
+  line-height: 1.6;
+}
+img { display:block; max-width:100%; }
+a { text-decoration:none; color:inherit; }
+button { font-family:inherit; cursor:pointer; }
+ul { list-style:none; }
+
+/* SCROLLBAR */
+::-webkit-scrollbar { width:4px; }
+::-webkit-scrollbar-track { background:var(--deeper); }
+::-webkit-scrollbar-thumb { background:var(--teal); border-radius:4px; }
+
+/* SELECTION */
+::selection { background:var(--aqua); color:var(--deep); }
+
+/* ============================================================
+   CUSTOM CURSOR
+   ============================================================ */
+.cursor {
+  width:12px; height:12px;
+  background:var(--aqua);
+  border-radius:50%;
+  position:fixed;
+  pointer-events:none;
+  z-index:99999;
+  transform:translate(-50%,-50%);
+  transition:width .25s, height .25s, background .25s, opacity .25s;
+  mix-blend-mode:screen;
+}
+.cursor-ring {
+  width:40px; height:40px;
+  border:1.5px solid rgba(31,184,204,0.5);
+  border-radius:50%;
+  position:fixed;
+  pointer-events:none;
+  z-index:99998;
+  transform:translate(-50%,-50%);
+}
+.cursor.hovering { width:22px; height:22px; background:var(--gold); }
+.cursor-ring.hovering { width:56px; height:56px; border-color:rgba(232,184,75,0.4); }
+@media(pointer:coarse) { .cursor,.cursor-ring { display:none; } body { cursor:auto; } }
+
+/* ============================================================
+   SCROLL PROGRESS BAR
+   ============================================================ */
+.scroll-progress {
+  position:fixed; top:0; left:0; height:2px;
+  background:linear-gradient(90deg,var(--teal),var(--aqua),var(--gold));
+  z-index:10000; width:0%; transition:width .1s linear;
+}
+
+/* ============================================================
+   NAVBAR
+   ============================================================ */
+.navbar {
+  position:fixed; top:0; left:0; right:0; z-index:1000;
+  padding:20px 5%;
+  display:flex; justify-content:space-between; align-items:center;
+  transition:all .4s;
+}
+.navbar.scrolled {
+  background:rgba(3,15,26,0.92);
+  backdrop-filter:blur(24px) saturate(1.5);
+  padding:13px 5%;
+  border-bottom:1px solid var(--border);
+  box-shadow:0 4px 30px rgba(0,0,0,0.3);
+}
+.nav-logo {
+  font-family:'Bebas Neue',cursive;
+  font-size:clamp(20px,2.8vw,28px);
+  letter-spacing:5px;
+  color:var(--aqua);
+  display:flex; align-items:center; gap:4px;
+  transition:opacity .3s;
+}
+.nav-logo:hover { opacity:.8; }
+.nav-logo .dot { color:var(--gold); font-size:1.4em; line-height:0.6; }
+
+.nav-center {
+  display:flex; gap:6px; align-items:center;
+  background:rgba(255,255,255,0.04);
+  border:1px solid var(--border-w);
+  border-radius:100px;
+  padding:6px 8px;
+  backdrop-filter:blur(10px);
+}
+.nav-center a {
+  color:rgba(255,255,255,0.65);
+  font-size:11.5px;
+  font-weight:500;
+  letter-spacing:1.2px;
+  text-transform:uppercase;
+  padding:7px 14px;
+  border-radius:100px;
+  transition:all .3s;
+}
+.nav-center a:hover, .nav-center a.active {
+  background:var(--aqua-dim);
+  color:var(--aqua);
+}
+.nav-right { display:flex; align-items:center; gap:14px; }
+.nav-weather {
+  display:flex; align-items:center; gap:8px;
+  padding:7px 14px;
+  border:1px solid var(--border-w);
+  border-radius:100px;
+  font-size:12px;
+  color:rgba(255,255,255,0.55);
+  backdrop-filter:blur(10px);
+}
+.nav-weather svg { width:14px; height:14px; stroke:var(--gold); fill:none; stroke-width:2; }
+.nav-weather span.temp { color:var(--gold); font-weight:600; }
+
+/* HAMBURGER */
+.hamburger {
+  display:none;
+  width:40px; height:40px;
+  background:rgba(255,255,255,0.06);
+  border:1px solid var(--border-w);
+  border-radius:10px;
+  flex-direction:column;
+  align-items:center; justify-content:center;
+  gap:5px;
+  z-index:1100;
+  transition:all .3s;
+}
+.hamburger span {
+  display:block; width:18px; height:1.5px;
+  background:var(--aqua); border-radius:2px; transition:all .3s;
+}
+.hamburger.open { background:var(--aqua-dim); border-color:var(--aqua); }
+.hamburger.open span:nth-child(1) { transform:rotate(45deg) translate(4.5px,4.5px); }
+.hamburger.open span:nth-child(2) { opacity:0; transform:scaleX(0); }
+.hamburger.open span:nth-child(3) { transform:rotate(-45deg) translate(4.5px,-4.5px); }
+
+/* MOBILE MENU */
+.mobile-menu {
+  display:none; position:fixed; inset:0;
+  background:rgba(3,9,18,0.97);
+  backdrop-filter:blur(30px);
+  z-index:1050;
+  flex-direction:column; justify-content:center; align-items:center; gap:8px;
+  opacity:0; transition:opacity .35s;
+}
+.mobile-menu.show { opacity:1; }
+.mobile-menu-item {
+  width:85%; max-width:320px;
+  display:flex; align-items:center; gap:16px;
+  padding:18px 24px;
+  border:1px solid rgba(255,255,255,0.07);
+  border-radius:14px;
+  background:rgba(255,255,255,0.03);
+  transition:all .3s;
+  cursor:pointer;
+}
+.mobile-menu-item:hover { background:var(--aqua-dim); border-color:var(--aqua); }
+.mobile-menu-item .mm-icon {
+  width:42px; height:42px;
+  background:var(--aqua-dim);
+  border-radius:10px;
+  display:flex; align-items:center; justify-content:center;
+  flex-shrink:0;
+}
+.mobile-menu-item .mm-icon svg { width:20px; height:20px; stroke:var(--aqua); fill:none; stroke-width:1.8; }
+.mobile-menu-item .mm-text { flex:1; }
+.mobile-menu-item .mm-text span { display:block; font-size:14px; font-weight:600; color:var(--white); letter-spacing:.3px; }
+.mobile-menu-item .mm-text small { font-size:11px; color:rgba(255,255,255,0.4); }
+.mobile-menu-item svg.arrow { width:16px; height:16px; stroke:rgba(255,255,255,0.3); fill:none; stroke-width:2; }
+.mobile-menu-close {
+  position:absolute; top:24px; right:24px;
+  width:44px; height:44px;
+  background:rgba(255,255,255,0.07);
+  border:1px solid var(--border-w);
+  border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer; transition:all .3s;
+}
+.mobile-menu-close:hover { background:var(--coral); }
+.mobile-menu-close svg { width:18px; height:18px; stroke:var(--white); fill:none; stroke-width:2.5; }
+.mobile-logo {
+  font-family:'Bebas Neue',cursive;
+  font-size:28px; letter-spacing:5px; color:var(--aqua);
+  margin-bottom:32px;
+}
+.mobile-logo span { color:var(--gold); }
+
+/* ============================================================
+   ANIMATIONS & UTILITIES
+   ============================================================ */
+@keyframes fadeUp   { from{opacity:0;transform:translateY(32px);}  to{opacity:1;transform:translateY(0);} }
+@keyframes fadeIn   { from{opacity:0;}                               to{opacity:1;} }
+@keyframes fadeLeft { from{opacity:0;transform:translateX(32px);}   to{opacity:1;transform:translateX(0);} }
+@keyframes scaleIn  { from{opacity:0;transform:scale(.9);}          to{opacity:1;transform:scale(1);} }
+@keyframes pulse    { 0%,100%{opacity:1;} 50%{opacity:.5;} }
+@keyframes spin     { from{transform:rotate(0)} to{transform:rotate(360deg)} }
+@keyframes shimmer  {
+  0%   { background-position:-200% center; }
+  100% { background-position:200% center; }
+}
+@keyframes floatY   { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-18px);} }
+@keyframes gridMov  { from{transform:translateY(0);} to{transform:translateY(60px);} }
+@keyframes orb1     { 0%,100%{transform:translate(0,0) scale(1);}    50%{transform:translate(20px,-30px) scale(1.08);} }
+@keyframes orb2     { 0%,100%{transform:translate(0,0) scale(1);}    50%{transform:translate(-15px,25px) scale(1.05);} }
+@keyframes orb3     { 0%,100%{transform:translate(0,0) scale(1);}    50%{transform:translate(10px,-15px) scale(1.1);} }
+@keyframes borderGlow { 0%,100%{box-shadow:0 0 0 0 rgba(31,184,204,0.3);} 50%{box-shadow:0 0 0 8px rgba(31,184,204,0);} }
+@keyframes lineSlide { from{width:0;} to{width:100%;} }
+@keyframes countUp  { from{opacity:0;transform:translateY(12px);} to{opacity:1;transform:translateY(0);} }
+@keyframes waveAnim { 0%{d:path("M0,64 C240,96 480,32 720,64 C960,96 1200,32 1440,64 L1440,192 L0,192 Z");}
+                      50%{d:path("M0,80 C240,48 480,112 720,80 C960,48 1200,112 1440,80 L1440,192 L0,192 Z");}
+                      100%{d:path("M0,64 C240,96 480,32 720,64 C960,96 1200,32 1440,64 L1440,192 L0,192 Z");} }
+
+.reveal {
+  opacity:0; transform:translateY(40px);
+  transition:opacity .85s cubic-bezier(.25,.46,.45,.94), transform .85s cubic-bezier(.25,.46,.45,.94);
+}
+.reveal.in { opacity:1; transform:translateY(0); }
+.reveal-left  { opacity:0; transform:translateX(-40px); transition:opacity .85s cubic-bezier(.25,.46,.45,.94), transform .85s cubic-bezier(.25,.46,.45,.94); }
+.reveal-left.in { opacity:1; transform:translateX(0); }
+.reveal-right { opacity:0; transform:translateX(40px); transition:opacity .85s cubic-bezier(.25,.46,.45,.94), transform .85s cubic-bezier(.25,.46,.45,.94); }
+.reveal-right.in { opacity:1; transform:translateX(0); }
+.reveal-scale { opacity:0; transform:scale(0.92); transition:opacity .85s, transform .85s; }
+.reveal-scale.in { opacity:1; transform:scale(1); }
+.delay-1 { transition-delay:.1s; }
+.delay-2 { transition-delay:.2s; }
+.delay-3 { transition-delay:.3s; }
+.delay-4 { transition-delay:.4s; }
+.delay-5 { transition-delay:.5s; }
+.delay-6 { transition-delay:.6s; }
+
+/* SHARED SECTION LABELS */
+.sec-label {
+  display:inline-flex; align-items:center; gap:10px;
+  font-size:10.5px; font-weight:600; letter-spacing:4px;
+  text-transform:uppercase; color:var(--aqua);
+  margin-bottom:16px;
+}
+.sec-label::before { content:''; width:28px; height:1.5px; background:currentColor; }
+.sec-label.gold { color:var(--gold); }
+.sec-label.teal { color:var(--teal); }
+.sec-label.white { color:rgba(255,255,255,.5); }
+
+.sec-title {
+  font-family:'Playfair Display',serif;
+  font-size:clamp(32px,4.5vw,58px);
+  font-weight:700; line-height:1.1;
+  letter-spacing:-0.5px;
+}
+.sec-title em { font-style:italic; color:var(--aqua); }
+.sec-title.dark { color:var(--ocean); }
+.sec-title.dark em { color:var(--teal); }
+.sec-title.gold em { color:var(--gold); }
+
+.sec-subtitle {
+  font-size:clamp(14px,1.6vw,17px);
+  color:rgba(255,255,255,0.55);
+  line-height:1.8; font-weight:300;
+  max-width:540px;
+}
+.sec-subtitle.dark { color:var(--muted); }
+
+/* BUTTONS */
+.btn {
+  display:inline-flex; align-items:center; gap:8px;
+  padding:13px 30px; border-radius:6px;
+  font-size:12.5px; font-weight:600;
+  letter-spacing:1.2px; text-transform:uppercase;
+  transition:all var(--transition);
+  position:relative; overflow:hidden; border:none; cursor:pointer;
+}
+.btn::before {
+  content:''; position:absolute; inset:0;
+  background:rgba(255,255,255,.18);
+  transform:scaleX(0); transform-origin:left;
+  transition:transform var(--transition);
+}
+.btn:hover::before { transform:scaleX(1); }
+.btn:hover { transform:translateY(-2px); }
+.btn svg { width:14px; height:14px; stroke:currentColor; fill:none; stroke-width:2.5; transition:transform .3s; }
+.btn:hover svg { transform:translateX(3px); }
+.btn-aqua { background:var(--aqua); color:var(--deep); }
+.btn-aqua:hover { box-shadow:0 12px 40px rgba(31,184,204,.45); }
+.btn-outline-w { background:transparent; border:1px solid rgba(255,255,255,.3); color:var(--white); }
+.btn-outline-w:hover { border-color:var(--aqua); color:var(--aqua); box-shadow:0 0 0 1px var(--aqua); }
+.btn-gold { background:var(--gold); color:var(--deep); }
+.btn-gold:hover { box-shadow:0 12px 40px rgba(232,184,75,.45); }
+.btn-ghost { background:transparent; border:1px solid var(--border); color:var(--aqua); font-size:11px; padding:9px 20px; }
+.btn-ghost:hover { background:var(--aqua-dim); border-color:var(--aqua); }
+
+/* TAGS */
+.tag-pill {
+  display:inline-block;
+  padding:4px 13px;
+  border:1px solid rgba(31,184,204,.3);
+  border-radius:100px;
+  font-size:10.5px; letter-spacing:1px;
+  text-transform:uppercase; color:var(--aqua);
+  background:var(--aqua-dim);
+}
+.tag-pill.gold { border-color:rgba(232,184,75,.3); color:var(--gold); background:var(--gold-dim); }
+.tag-pill.coral { border-color:rgba(232,93,58,.3); color:var(--coral); background:rgba(232,93,58,.12); }
+
+/* ============================================================
+   HERO SECTION
+   ============================================================ */
+#hero {
+  position:relative;
+  min-height:100vh;
+  display:flex; align-items:center;
+  overflow:hidden;
+}
+.hero-bg {
+  position:absolute; inset:0;
+  background:
+    radial-gradient(ellipse 60% 80% at 15% 50%, rgba(15,123,140,0.22) 0%,transparent 65%),
+    radial-gradient(ellipse 50% 60% at 85% 20%, rgba(232,184,75,0.09) 0%,transparent 55%),
+    radial-gradient(ellipse 40% 50% at 70% 80%, rgba(232,93,58,0.06) 0%,transparent 50%),
+    linear-gradient(145deg, var(--deeper) 0%, #061828 50%, #0a3050 100%);
+}
+.hero-noise {
+  position:absolute; inset:0;
+  opacity:.03;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:200px;
+}
+.hero-grid-lines {
+  position:absolute; inset:0;
+  background-image:
+    linear-gradient(rgba(31,184,204,.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(31,184,204,.035) 1px, transparent 1px);
+  background-size:64px 64px;
+  animation:gridMov 24s linear infinite;
+}
+.hero-orbs { position:absolute; inset:0; overflow:hidden; pointer-events:none; }
+.orb {
+  position:absolute; border-radius:50%;
+  filter:blur(90px); pointer-events:none;
+}
+.orb-1 { width:580px;height:580px; background:rgba(15,123,140,.18); top:-120px;right:-60px; animation:orb1 10s ease-in-out infinite; }
+.orb-2 { width:400px;height:400px; background:rgba(232,184,75,.11); bottom:5%;left:-80px; animation:orb2 13s ease-in-out infinite; }
+.orb-3 { width:280px;height:280px; background:rgba(31,184,204,.1); top:45%;left:38%; animation:orb3 8s ease-in-out infinite; }
+.orb-4 { width:200px;height:200px; background:rgba(232,93,58,.07); bottom:25%;right:20%; animation:orb1 11s ease-in-out infinite reverse; }
+
+.hero-inner {
+  position:relative; z-index:2;
+  width:100%; max-width:1440px;
+  margin:0 auto;
+  padding:0 5%;
+  padding-top:120px;
+  display:grid; grid-template-columns:1fr 1fr;
+  gap:60px; align-items:center;
+}
+
+.hero-left {}
+.hero-eyebrow {
+  display:inline-flex; align-items:center; gap:10px;
+  font-size:11px; font-weight:600; letter-spacing:3.5px;
+  text-transform:uppercase; color:var(--aqua);
+  margin-bottom:28px;
+  opacity:0; animation:fadeUp .7s ease forwards .2s;
+}
+.hero-eyebrow::before { content:''; width:32px; height:1px; background:var(--aqua); }
+.hero-eyebrow .live-dot {
+  width:7px;height:7px; background:var(--coral);
+  border-radius:50%; margin-left:6px;
+  animation:pulse 2s ease-in-out infinite;
+}
+
+.hero-title {
+  font-family:'Playfair Display',serif;
+  font-size:clamp(54px,9vw,118px);
+  font-weight:900; line-height:.88;
+  margin-bottom:10px;
+  opacity:0; animation:fadeUp .9s ease forwards .4s;
+}
+.hero-title .t1 { display:block; color:var(--white); letter-spacing:-3px; }
+.hero-title .t2 {
+  display:block; color:transparent;
+  -webkit-text-stroke:2px rgba(31,184,204,.55);
+  letter-spacing:-3px;
+}
+.hero-title .t3 {
+  display:block; font-family:'Cormorant Garamond',serif;
+  font-style:italic; font-size:.48em; font-weight:300;
+  color:var(--gold); letter-spacing:3px; margin-top:12px;
+  -webkit-text-stroke:0;
+}
+
+.hero-desc {
+  max-width:460px; margin-top:28px; margin-bottom:40px;
+  font-size:clamp(14px,1.5vw,16.5px);
+  line-height:1.8; color:rgba(255,255,255,.55);
+  font-weight:300;
+  opacity:0; animation:fadeUp .9s ease forwards .6s;
+}
+.hero-actions {
+  display:flex; gap:14px; flex-wrap:wrap;
+  opacity:0; animation:fadeUp .9s ease forwards .8s;
+}
+
+.hero-stats {
+  display:flex; gap:0;
+  margin-top:56px; padding-top:40px;
+  border-top:1px solid rgba(255,255,255,.08);
+  opacity:0; animation:fadeUp .9s ease forwards 1s;
+}
+.hero-stat {
+  flex:1; padding:0 24px;
+  border-right:1px solid rgba(255,255,255,.08);
+}
+.hero-stat:first-child { padding-left:0; }
+.hero-stat:last-child { border-right:none; }
+.stat-num {
+  font-family:'Bebas Neue',cursive;
+  font-size:clamp(38px,5vw,56px);
+  color:var(--aqua); line-height:1;
+  letter-spacing:1px;
+}
+.stat-label {
+  font-size:11px; color:rgba(255,255,255,.4);
+  letter-spacing:2px; text-transform:uppercase; margin-top:4px;
+}
+.stat-sub { font-size:11px; color:rgba(255,255,255,.25); margin-top:2px; }
+
+/* HERO RIGHT — floating cards */
+.hero-right {
+  position:relative; height:580px;
+  opacity:0; animation:fadeLeft .9s ease forwards .5s;
+}
+.hero-card-main {
+  position:absolute; right:0; top:0;
+  width:80%; height:400px;
+  border-radius:var(--radius-lg); overflow:hidden;
+  box-shadow:var(--shadow-lg);
+}
+.hero-card-main img { width:100%;height:100%; object-fit:cover; }
+.hero-card-main::after {
+  content:''; position:absolute; inset:0;
+  background:linear-gradient(135deg, transparent 50%, rgba(5,30,46,.6) 100%);
+}
+.hero-card-accent {
+  position:absolute; left:0; bottom:0;
+  width:58%; height:260px;
+  border-radius:var(--radius-lg); overflow:hidden;
+  box-shadow:var(--shadow-lg);
+  border:3px solid var(--deeper);
+  z-index:2;
+}
+.hero-card-accent img { width:100%;height:100%; object-fit:cover; }
+.hero-float-badge {
+  position:absolute; top:48%; right:-12px;
+  z-index:3;
+  background:var(--glass);
+  backdrop-filter:blur(20px);
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:16px 20px;
+  display:flex; align-items:center; gap:12px;
+  animation:floatY 4s ease-in-out infinite;
+  min-width:180px;
+}
+.hero-float-badge .fb-icon {
+  width:40px;height:40px; border-radius:10px;
+  background:var(--aqua-dim);
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+}
+.hero-float-badge .fb-icon svg { width:20px;height:20px;stroke:var(--aqua);fill:none;stroke-width:1.8; }
+.hero-float-badge .fb-text strong { display:block; font-size:13px; color:var(--white); }
+.hero-float-badge .fb-text span { font-size:11px; color:rgba(255,255,255,.45); }
+
+.hero-float-badge2 {
+  position:absolute; left:0; top:16%;
+  z-index:3;
+  background:var(--glass);
+  backdrop-filter:blur(20px);
+  border:1px solid rgba(232,184,75,.2);
+  border-radius:14px; padding:14px 18px;
+  display:flex;align-items:center;gap:10px;
+  animation:floatY 5s ease-in-out infinite .8s;
+}
+.hero-float-badge2 .fb-icon { background:var(--gold-dim); }
+.hero-float-badge2 .fb-icon svg { stroke:var(--gold); }
+
+.hero-scroll-cue {
+  position:absolute; bottom:36px; right:5%;
+  display:flex; flex-direction:column; align-items:center; gap:8px;
+  color:rgba(255,255,255,.3); font-size:9.5px; letter-spacing:3.5px;
+  text-transform:uppercase; writing-mode:vertical-rl;
+  opacity:0; animation:fadeIn 1s ease forwards 1.5s;
+}
+.hero-scroll-cue::after {
+  content:''; width:1px; height:60px;
+  background:linear-gradient(to bottom, transparent, var(--aqua));
+  animation:scaleY 2.2s ease-in-out infinite;
+}
+@keyframes scaleY {
+  0% { transform:scaleY(0); transform-origin:top; opacity:1; }
+  50% { transform:scaleY(1); transform-origin:top; opacity:1; }
+  51% { transform:scaleY(1); transform-origin:bottom; opacity:1; }
+  100% { transform:scaleY(0); transform-origin:bottom; opacity:0; }
+}
+
+/* WAVE DIVIDER */
+.wave-divider { display:block; width:100%; overflow:hidden; line-height:0; }
+.wave-divider svg { display:block; }
+/* ============================================================
+   ABOUT SECTION
+   ============================================================ */
+#tentang {
+  background:var(--white);
+  color:var(--text);
+  padding:140px 5%;
+  position:relative; overflow:hidden;
+}
+#tentang::before {
+  content:'BITUNG';
+  position:absolute; font-family:'Bebas Neue',cursive;
+  font-size:clamp(90px,20vw,260px);
+  color:rgba(10,61,92,.035); top:50%; left:50%;
+  transform:translate(-50%,-50%);
+  white-space:nowrap; pointer-events:none; user-select:none;
+}
+.about-wrap { max-width:1400px; margin:0 auto; }
+.about-grid {
+  display:grid; grid-template-columns:1.1fr 0.9fr;
+  gap:90px; align-items:start;
+}
+.about-img-composition {
+  position:relative; height:580px;
+}
+.aic-main {
+  position:absolute; right:0; top:0;
+  width:76%; height:420px;
+  border-radius:var(--radius-lg); overflow:hidden;
+  box-shadow:0 32px 80px rgba(10,61,92,.18);
+}
+.aic-main img { width:100%;height:100%;object-fit:cover;transition:transform .6s; }
+.aic-main:hover img { transform:scale(1.04); }
+.aic-accent {
+  position:absolute; left:0; bottom:0;
+  width:56%; height:280px;
+  border-radius:var(--radius-lg); overflow:hidden;
+  box-shadow:0 28px 72px rgba(10,61,92,.16);
+  border:5px solid var(--white); z-index:2;
+}
+.aic-accent img { width:100%;height:100%;object-fit:cover;transition:transform .6s; }
+.aic-accent:hover img { transform:scale(1.05); }
+.aic-badge {
+  position:absolute; top:44%; left:53%;
+  transform:translate(-50%,-50%); z-index:3;
+  background:var(--ocean); border:3px solid var(--aqua);
+  border-radius:50%; width:100px; height:100px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center; box-shadow:0 0 0 8px rgba(31,184,204,.12), 0 20px 50px rgba(0,0,0,.3);
+  animation:borderGlow 3s ease-in-out infinite;
+}
+.aic-badge .yr { font-family:'Bebas Neue',cursive; font-size:28px; color:var(--aqua); line-height:1; letter-spacing:1px; }
+.aic-badge .lb { font-size:8.5px; color:rgba(255,255,255,.5); letter-spacing:2px; text-transform:uppercase; }
+.aic-tag {
+  position:absolute; bottom:28%; right:-16px; z-index:4;
+  background:var(--ocean); color:var(--white);
+  border-radius:10px; padding:12px 16px;
+  border:1px solid var(--border);
+  backdrop-filter:blur(10px);
+}
+.aic-tag span { display:block; font-family:'Bebas Neue',cursive; font-size:22px; color:var(--gold); letter-spacing:2px; line-height:1; }
+.aic-tag small { font-size:9.5px; color:rgba(255,255,255,.45); letter-spacing:2px; text-transform:uppercase; }
+
+.about-content {}
+.about-intro {
+  font-size:clamp(15px,1.5vw,17px); line-height:1.9;
+  color:var(--muted); margin-bottom:28px; font-weight:300;
+}
+.about-intro strong { color:var(--ocean); font-weight:600; }
+.about-intro em { font-style:italic; color:var(--teal); }
+
+.about-highlights-grid {
+  display:grid; grid-template-columns:1fr 1fr;
+  gap:12px; margin-top:32px; margin-bottom:40px;
+}
+.ahl-card {
+  background:rgba(10,61,92,.04);
+  border:1px solid rgba(10,61,92,.09);
+  border-radius:var(--radius); padding:16px;
+  display:flex; align-items:flex-start; gap:12px;
+  transition:all .3s; cursor:default;
+}
+.ahl-card:hover {
+  background:rgba(15,123,140,.07);
+  border-color:rgba(31,184,204,.25);
+  transform:translateY(-2px);
+  box-shadow:0 8px 24px rgba(10,61,92,.1);
+}
+.ahl-icon {
+  width:38px;height:38px; flex-shrink:0;
+  background:rgba(15,123,140,.1); border-radius:9px;
+  display:flex;align-items:center;justify-content:center;
+}
+.ahl-icon svg { width:18px;height:18px; stroke:var(--teal); fill:none; stroke-width:1.8; }
+.ahl-info h5 { font-size:12px; font-weight:600; color:var(--ocean); letter-spacing:.3px; margin-bottom:3px; }
+.ahl-info p { font-size:12px; color:var(--muted); line-height:1.5; }
+
+/* ============================================================
+   TIMELINE / SEJARAH
+   ============================================================ */
+#sejarah {
+  background:var(--deep);
+  padding:140px 5%;
+  position:relative; overflow:hidden;
+}
+#sejarah::before {
+  content:''; position:absolute; inset:0;
+  background:
+    radial-gradient(ellipse at 0% 50%, rgba(15,123,140,.12) 0%,transparent 50%),
+    radial-gradient(ellipse at 100% 50%, rgba(232,184,75,.06) 0%,transparent 50%);
+  pointer-events:none;
+}
+.sejarah-wrap { max-width:1100px; margin:0 auto; }
+.sejarah-header { text-align:center; margin-bottom:80px; }
+.sejarah-header .sec-subtitle { margin:16px auto 0; }
+.timeline {
+  position:relative;
+  padding:0 0 40px;
+}
+.timeline::before {
+  content:''; position:absolute;
+  left:50%; top:0; bottom:0; width:1px;
+  background:linear-gradient(to bottom, transparent, var(--aqua) 10%, var(--aqua) 90%, transparent);
+  transform:translateX(-50%);
+}
+.tl-item {
+  position:relative; margin-bottom:60px;
+  display:grid; grid-template-columns:1fr 1fr;
+  gap:60px; align-items:center;
+}
+.tl-item:nth-child(even) .tl-content { grid-column:2; grid-row:1; }
+.tl-item:nth-child(even) .tl-year { grid-column:1; grid-row:1; text-align:right; }
+.tl-dot {
+  position:absolute; left:50%; top:50%;
+  transform:translate(-50%,-50%);
+  width:16px; height:16px;
+  background:var(--aqua); border-radius:50%;
+  border:3px solid var(--deep);
+  box-shadow:0 0 0 4px rgba(31,184,204,.3);
+  z-index:2;
+}
+.tl-year {
+  text-align:right;
+}
+.tl-year .yr-num {
+  font-family:'Bebas Neue',cursive;
+  font-size:clamp(52px,7vw,80px);
+  color:transparent;
+  -webkit-text-stroke:1px rgba(31,184,204,.35);
+  line-height:1; letter-spacing:2px;
+}
+.tl-year .yr-label {
+  font-size:11px; color:rgba(255,255,255,.3);
+  letter-spacing:3px; text-transform:uppercase;
+}
+.tl-content {
+  background:rgba(255,255,255,.04);
+  border:1px solid var(--border-w);
+  border-radius:var(--radius-lg); padding:28px;
+  transition:all .35s;
+}
+.tl-content:hover {
+  background:rgba(31,184,204,.06);
+  border-color:var(--border);
+  transform:translateY(-3px);
+  box-shadow:0 12px 40px rgba(0,0,0,.2);
+}
+.tl-content .tl-tag { margin-bottom:10px; }
+.tl-content h3 { font-family:'Playfair Display',serif; font-size:20px; color:var(--white); margin-bottom:10px; }
+.tl-content p { font-size:13.5px; color:rgba(255,255,255,.55); line-height:1.75; }
+.tl-item:nth-child(even) .tl-content { text-align:left; }
+.tl-item:nth-child(odd) .tl-year { text-align:left; }
+
+/* ============================================================
+   GALLERY SECTION
+   ============================================================ */
+#galeri {
+  background:var(--deeper);
+  padding:140px 5% 100px;
+  position:relative; overflow:hidden;
+}
+#galeri::before {
+  content:''; position:absolute;
+  top:0;left:0;right:0; height:1px;
+  background:linear-gradient(90deg, transparent, var(--aqua), transparent);
+}
+.gallery-wrap { max-width:1440px; margin:0 auto; }
+.gallery-top {
+  display:flex; justify-content:space-between; align-items:flex-end;
+  flex-wrap:wrap; gap:24px; margin-bottom:48px;
+}
+.gallery-top .sec-title { color:var(--white); }
+
+.gallery-filters {
+  display:flex; gap:8px; flex-wrap:wrap;
+  padding:6px 8px;
+  background:rgba(255,255,255,.04);
+  border:1px solid var(--border-w);
+  border-radius:100px;
+}
+.gf-btn {
+  padding:8px 18px; border-radius:100px;
+  background:transparent; border:none;
+  color:rgba(255,255,255,.45); font-size:12px; font-weight:500;
+  letter-spacing:.8px; cursor:pointer;
+  transition:all .3s; font-family:'DM Sans',sans-serif;
+  display:flex;align-items:center;gap:6px;
+}
+.gf-btn svg { width:12px;height:12px; stroke:currentColor; fill:none; stroke-width:2; }
+.gf-btn.active, .gf-btn:hover {
+  background:var(--aqua); color:var(--deep);
+}
+
+/* MASONRY-STYLE GRID */
+.gallery-mosaic {
+  display:grid;
+  grid-template-columns:repeat(12,1fr);
+  grid-auto-rows:60px;
+  gap:12px;
+}
+.gm-item {
+  border-radius:var(--radius); overflow:hidden;
+  position:relative; cursor:pointer;
+  transition:opacity .4s, transform .4s;
+}
+.gm-item img { width:100%;height:100%;object-fit:cover;transition:transform .6s ease; }
+.gm-item:hover img { transform:scale(1.07); }
+.gm-overlay {
+  position:absolute; inset:0;
+  background:linear-gradient(to top, rgba(3,15,26,.88) 0%, transparent 55%);
+  opacity:0; transition:opacity .4s;
+  display:flex; flex-direction:column; justify-content:flex-end; padding:18px;
+}
+.gm-item:hover .gm-overlay { opacity:1; }
+.gm-overlay h4 { font-family:'Playfair Display',serif; font-size:16px; color:var(--white); font-weight:600; }
+.gm-overlay p { font-size:10.5px; color:var(--aqua); letter-spacing:2px; text-transform:uppercase; margin-top:3px; }
+.gm-overlay .gm-expand {
+  position:absolute; top:14px; right:14px;
+  width:32px;height:32px; border-radius:50%;
+  background:rgba(31,184,204,.2); border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  transition:all .3s;
+}
+.gm-overlay .gm-expand svg { width:14px;height:14px;stroke:var(--aqua);fill:none;stroke-width:2; }
+.gm-item:hover .gm-overlay .gm-expand { background:var(--aqua); }
+.gm-item:hover .gm-overlay .gm-expand svg { stroke:var(--deep); }
+
+/* Grid item sizes */
+.gm-1  { grid-column:1/6;  grid-row:1/6;  }
+.gm-2  { grid-column:6/9;  grid-row:1/4;  }
+.gm-3  { grid-column:9/13; grid-row:1/5;  }
+.gm-4  { grid-column:6/9;  grid-row:4/7;  }
+.gm-5  { grid-column:9/13; grid-row:5/8;  }
+.gm-6  { grid-column:1/5;  grid-row:6/10; }
+.gm-7  { grid-column:5/9;  grid-row:7/10; }
+.gm-8  { grid-column:9/13; grid-row:8/11; }
+
+/* ============================================================
+   DESTINASI SECTION
+   ============================================================ */
+#destinasi {
+  background:var(--cream);
+  color:var(--text);
+  padding:140px 5%;
+  position:relative; overflow:hidden;
+}
+.dest-wrap { max-width:1440px; margin:0 auto; }
+.dest-header { text-align:center; margin-bottom:72px; }
+.dest-header .sec-subtitle { margin:16px auto 0; }
+
+.dest-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
+  gap:24px;
+}
+.dest-card {
+  background:var(--white);
+  border-radius:var(--radius-lg); overflow:hidden;
+  box-shadow:0 4px 24px rgba(10,61,92,.08);
+  transition:all var(--transition); cursor:pointer;
+  position:relative;
+}
+.dest-card:hover {
+  transform:translateY(-10px);
+  box-shadow:0 24px 60px rgba(10,61,92,.16);
+}
+.dest-card-img { height:220px; overflow:hidden; position:relative; }
+.dest-card-img img { width:100%;height:100%;object-fit:cover;transition:transform .55s; }
+.dest-card:hover .dest-card-img img { transform:scale(1.07); }
+.dest-card-img-overlay {
+  position:absolute; inset:0;
+  background:linear-gradient(to top, rgba(10,61,92,.5) 0%, transparent 60%);
+}
+.dest-badge {
+  position:absolute; top:14px; left:14px;
+  padding:4px 12px; border-radius:6px;
+  background:rgba(3,15,26,.7); backdrop-filter:blur(8px);
+  font-size:10px; font-weight:700; letter-spacing:2px;
+  text-transform:uppercase; color:var(--aqua);
+  border:1px solid rgba(31,184,204,.3);
+}
+.dest-info-trigger {
+  position:absolute; top:14px; right:14px;
+  width:34px;height:34px; border-radius:50%;
+  background:rgba(3,15,26,.7); backdrop-filter:blur(8px);
+  border:1px solid rgba(255,255,255,.2);
+  display:flex;align-items:center;justify-content:center;
+  transition:all .3s;
+}
+.dest-info-trigger svg { width:16px;height:16px;stroke:var(--white);fill:none;stroke-width:2; }
+.dest-info-trigger:hover { background:var(--aqua); border-color:var(--aqua); }
+.dest-info-trigger:hover svg { stroke:var(--deep); }
+
+.dest-card-body { padding:24px; }
+.dest-card-body h3 {
+  font-family:'Playfair Display',serif;
+  font-size:22px; font-weight:700; color:var(--ocean);
+  margin-bottom:10px; margin-top:6px;
+}
+.dest-card-body p {
+  font-size:13.5px; color:var(--muted);
+  line-height:1.7; margin-bottom:20px;
+}
+.dest-card-footer {
+  display:flex; justify-content:space-between; align-items:center;
+  padding-top:16px; border-top:1px solid rgba(10,61,92,.08);
+}
+.dest-rating { display:flex; align-items:center; gap:6px; }
+.dest-stars { color:var(--gold); font-size:13px; }
+.dest-score { font-size:14px; font-weight:700; color:var(--ocean); }
+.dest-reviews { font-size:11px; color:var(--muted); }
+.dest-more {
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:11.5px; font-weight:600; letter-spacing:.8px;
+  text-transform:uppercase; color:var(--teal);
+  background:none; border:none; cursor:pointer;
+  font-family:'DM Sans',sans-serif; padding:0;
+  transition:gap .3s;
+}
+.dest-more svg { width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2.5;transition:transform .3s; }
+.dest-more:hover { gap:10px; }
+.dest-more:hover svg { transform:translateX(3px); }
+
+/* ============================================================
+   KULINER SECTION
+   ============================================================ */
+#kuliner {
+  background:var(--ocean);
+  padding:140px 5%;
+  position:relative; overflow:hidden;
+}
+#kuliner::before {
+  content:''; position:absolute; inset:0;
+  background:
+    radial-gradient(ellipse at 100% 0%, rgba(232,184,75,.1) 0%,transparent 55%),
+    radial-gradient(ellipse at 0% 100%, rgba(31,184,204,.1) 0%,transparent 55%);
+  pointer-events:none;
+}
+.kuliner-wrap { max-width:1440px; margin:0 auto; }
+.kuliner-intro {
+  display:grid; grid-template-columns:1fr 1fr;
+  gap:80px; align-items:end; margin-bottom:72px;
+}
+.kuliner-intro .sec-title { color:var(--white); }
+
+.food-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  gap:20px;
+}
+.food-card {
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:var(--radius-lg); overflow:hidden;
+  transition:all var(--transition); cursor:pointer;
+  position:relative; backdrop-filter:blur(8px);
+}
+.food-card:hover {
+  background:rgba(255,255,255,.11);
+  transform:translateY(-6px);
+  border-color:rgba(31,184,204,.35);
+  box-shadow:0 20px 50px rgba(0,0,0,.25);
+}
+.food-card-img { height:185px; overflow:hidden; position:relative; }
+.food-card-img img { width:100%;height:100%;object-fit:cover;transition:transform .5s; }
+.food-card:hover .food-card-img img { transform:scale(1.07); }
+.food-card-img-overlay {
+  position:absolute; inset:0;
+  background:linear-gradient(to top, rgba(10,61,92,.6) 0%, transparent 55%);
+}
+.food-heat {
+  position:absolute; bottom:12px; left:14px;
+  display:flex; gap:3px;
+}
+.food-heat span {
+  width:6px;height:6px; border-radius:50%;
+  background:rgba(255,255,255,.2);
+}
+.food-heat span.on { background:var(--coral); }
+
+.food-info-btn {
+  position:absolute; top:12px; right:12px;
+  width:30px;height:30px; border-radius:50%;
+  background:rgba(3,15,26,.65); backdrop-filter:blur(8px);
+  border:1px solid rgba(31,184,204,.3);
+  display:flex;align-items:center;justify-content:center;
+  transition:all .3s;
+}
+.food-info-btn svg { width:14px;height:14px;stroke:var(--aqua);fill:none;stroke-width:2; }
+.food-info-btn:hover { background:var(--aqua); }
+.food-info-btn:hover svg { stroke:var(--deep); }
+
+.food-card-body { padding:20px; }
+.food-card-body h4 { font-family:'Playfair Display',serif; font-size:20px; color:var(--white); margin-bottom:7px; }
+.food-card-body p { font-size:12.5px; color:rgba(255,255,255,.5); line-height:1.65; margin-bottom:14px; }
+.food-card-footer { display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px; }
+.food-cta {
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:11px; font-weight:600; letter-spacing:1px;
+  text-transform:uppercase; color:var(--gold);
+  background:none;border:none;cursor:pointer;padding:0;
+  font-family:'DM Sans',sans-serif; transition:gap .3s;
+}
+.food-cta svg { width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2;transition:transform .3s; }
+.food-cta:hover { gap:10px; }
+.food-cta:hover svg { transform:translateX(3px); }
+
+/* ============================================================
+   INFO / FACTS SECTION
+   ============================================================ */
+#info {
+  background:var(--deep);
+  padding:140px 5%;
+  position:relative; overflow:hidden;
+}
+.info-wrap { max-width:1440px; margin:0 auto; }
+.info-grid {
+  display:grid; grid-template-columns:1fr 1fr;
+  gap:80px; align-items:start;
+}
+.info-cards-grid {
+  display:grid; grid-template-columns:1fr 1fr;
+  gap:14px; margin-top:40px;
+}
+.info-card {
+  background:rgba(255,255,255,.045);
+  border:1px solid var(--border-w);
+  border-radius:var(--radius); padding:22px;
+  display:flex; flex-direction:column; gap:12px;
+  transition:all .35s;
+}
+.info-card:hover {
+  background:rgba(31,184,204,.07);
+  border-color:var(--border);
+  transform:translateY(-4px);
+  box-shadow:0 12px 40px rgba(0,0,0,.2);
+}
+.info-card-icon {
+  width:42px;height:42px; border-radius:11px;
+  background:rgba(31,184,204,.1);
+  display:flex;align-items:center;justify-content:center;
+}
+.info-card-icon svg { width:20px;height:20px;stroke:var(--aqua);fill:none;stroke-width:1.8; }
+.info-card h4 { font-size:12.5px; font-weight:700; letter-spacing:.5px; text-transform:uppercase; color:var(--aqua); }
+.info-card p { font-size:13px; color:rgba(255,255,255,.55); line-height:1.65; }
+
+.map-wrap { position:relative; border-radius:var(--radius-lg); overflow:hidden; box-shadow:var(--shadow-lg); }
+.map-wrap iframe { width:100%;height:460px;border:none;display:block;filter:invert(88%) hue-rotate(180deg) saturate(.75); }
+.map-badge {
+  position:absolute; top:18px; left:18px;
+  background:rgba(3,15,26,.88); backdrop-filter:blur(14px);
+  border:1px solid var(--border); border-radius:12px;
+  padding:14px 18px; display:flex;align-items:center;gap:12px;
+}
+.map-badge svg { width:18px;height:18px;stroke:var(--aqua);fill:none;stroke-width:2;flex-shrink:0; }
+.map-badge-text strong { display:block;font-size:13px;font-weight:600;color:var(--aqua); }
+.map-badge-text span { font-size:11px;color:rgba(255,255,255,.45); }
+.map-actions { display:flex;gap:10px;margin-top:14px; }
+
+/* ============================================================
+   POPUP / MODAL SYSTEM
+   ============================================================ */
+.popup-overlay {
+  position:fixed; inset:0; z-index:5000;
+  background:rgba(2,8,16,.9);
+  backdrop-filter:blur(20px) saturate(1.2);
+  display:flex; align-items:center; justify-content:center;
+  padding:16px;
+  opacity:0; pointer-events:none;
+  transition:opacity .4s;
+}
+.popup-overlay.show { opacity:1; pointer-events:all; }
+.popup-box {
+  background:linear-gradient(160deg, #0a1f30 0%, var(--deep) 100%);
+  border:1px solid rgba(31,184,204,.2);
+  border-radius:20px;
+  max-width:740px; width:100%;
+  max-height:92vh; overflow-y:auto;
+  transform:scale(.93) translateY(16px);
+  transition:transform .4s cubic-bezier(.25,.46,.45,.94);
+  position:relative;
+}
+.popup-overlay.show .popup-box { transform:scale(1) translateY(0); }
+.popup-box::-webkit-scrollbar { width:3px; }
+.popup-box::-webkit-scrollbar-thumb { background:var(--teal); border-radius:4px; }
+
+.popup-hero-img {
+  width:100%; height:260px; object-fit:cover;
+  border-radius:20px 20px 0 0; display:block;
+}
+.popup-close {
+  position:absolute; top:16px; right:16px;
+  width:40px;height:40px; border-radius:50%;
+  background:rgba(3,15,26,.75); backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,.15);
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer; z-index:2; transition:all .3s;
+}
+.popup-close svg { width:17px;height:17px;stroke:var(--white);fill:none;stroke-width:2.5; }
+.popup-close:hover { background:var(--coral); border-color:var(--coral); }
+
+.popup-body { padding:32px; }
+.popup-eyebrow {
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:11px; font-weight:600; letter-spacing:2.5px;
+  text-transform:uppercase; color:var(--aqua);
+  margin-bottom:10px;
+}
+.popup-eyebrow svg { width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2; }
+.popup-title {
+  font-family:'Playfair Display',serif;
+  font-size:clamp(24px,4vw,34px);
+  font-weight:700; color:var(--white);
+  line-height:1.15; margin-bottom:16px;
+}
+.popup-lead {
+  font-size:14.5px; line-height:1.82;
+  color:rgba(255,255,255,.62); margin-bottom:26px;
+}
+
+.popup-facts {
+  display:grid; grid-template-columns:1fr 1fr;
+  gap:10px; margin-bottom:26px;
+}
+.pf-item {
+  background:rgba(255,255,255,.04);
+  border:1px solid var(--border-w);
+  border-radius:11px; padding:14px;
+  display:flex;align-items:flex-start;gap:10px;
+}
+.pf-icon {
+  width:32px;height:32px; border-radius:8px;
+  background:rgba(31,184,204,.1);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.pf-icon svg { width:15px;height:15px;stroke:var(--aqua);fill:none;stroke-width:1.8; }
+.pf-text strong { display:block;font-size:10px;font-weight:600;color:rgba(255,255,255,.35);letter-spacing:1px;text-transform:uppercase;margin-bottom:3px; }
+.pf-text span { font-size:13px;color:var(--white);line-height:1.4; }
+
+.popup-chips { display:flex;flex-wrap:wrap;gap:7px;margin-bottom:26px; }
+
+.popup-divider { height:1px;background:var(--border-w);margin:22px 0; }
+
+.popup-section-title {
+  font-size:11px; font-weight:600; letter-spacing:2px;
+  text-transform:uppercase; color:var(--aqua);
+  margin-bottom:14px; display:flex;align-items:center;gap:8px;
+}
+.popup-section-title svg { width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2; }
+
+.ingredient-grid { display:flex;flex-wrap:wrap;gap:7px;margin-bottom:22px; }
+.ing-chip {
+  padding:5px 13px;
+  background:rgba(255,255,255,.055);
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:100px; font-size:12px;
+  color:rgba(255,255,255,.72);
+}
+
+.recipe-list { display:flex;flex-direction:column;gap:11px; }
+.recipe-step { display:flex;align-items:flex-start;gap:12px; }
+.rs-num {
+  width:26px;height:26px; border-radius:50%;
+  background:rgba(31,184,204,.14);
+  border:1px solid rgba(31,184,204,.3);
+  display:flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:700;color:var(--aqua);
+  flex-shrink:0; margin-top:1px;
+}
+.recipe-step p { font-size:13.5px;color:rgba(255,255,255,.6);line-height:1.65; }
+
+.popup-tip {
+  background:rgba(232,184,75,.06);
+  border:1px solid rgba(232,184,75,.22);
+  border-radius:12px; padding:18px;
+  margin-top:22px;
+}
+.popup-tip-head { display:flex;align-items:center;gap:8px;margin-bottom:10px; }
+.popup-tip-head svg { width:16px;height:16px;stroke:var(--gold);fill:none;stroke-width:2; }
+.popup-tip-head strong { font-size:11px;font-weight:700;color:var(--gold);letter-spacing:1.5px;text-transform:uppercase; }
+.popup-tip p { font-size:13.5px;color:rgba(255,255,255,.58);line-height:1.7; }
+
+.popup-rating { display:flex;align-items:center;gap:10px;margin-top:22px;padding-top:20px;border-top:1px solid var(--border-w); }
+.pr-stars { color:var(--gold);font-size:17px;letter-spacing:1px; }
+.pr-score { font-family:'Bebas Neue',cursive;font-size:26px;color:var(--white);letter-spacing:1px; }
+.pr-label { font-size:12px;color:rgba(255,255,255,.38); }
+
+/* ============================================================
+   LIGHTBOX
+   ============================================================ */
+.lightbox {
+  position:fixed; inset:0; z-index:6000;
+  background:rgba(2,6,14,.97);
+  backdrop-filter:blur(24px);
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;transition:opacity .35s;
+}
+.lightbox.show { opacity:1;pointer-events:all; }
+.lb-img-wrap {
+  position:relative; max-width:92vw; max-height:86vh;
+  transform:scale(.9);transition:transform .35s;
+}
+.lightbox.show .lb-img-wrap { transform:scale(1); }
+.lb-img-wrap img { max-width:92vw;max-height:82vh;object-fit:contain;border-radius:10px;display:block;box-shadow:0 40px 100px rgba(0,0,0,.7); }
+.lb-close-btn {
+  position:fixed; top:22px;right:22px;
+  width:44px;height:44px;border-radius:50%;
+  background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;transition:all .3s;
+}
+.lb-close-btn svg { width:18px;height:18px;stroke:var(--white);fill:none;stroke-width:2.5; }
+.lb-close-btn:hover { background:var(--coral);border-color:var(--coral); }
+.lb-caption {
+  position:fixed;bottom:28px;left:50%;transform:translateX(-50%);
+  text-align:center;
+}
+.lb-caption strong { display:block;font-family:'Playfair Display',serif;font-size:18px;color:var(--white);margin-bottom:4px; }
+.lb-caption span { font-size:13px;color:rgba(255,255,255,.5); }
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+footer {
+  background:#020c14;
+  border-top:1px solid rgba(255,255,255,.05);
+  padding:90px 5% 40px;
+}
+.footer-wrap { max-width:1440px; margin:0 auto; }
+.footer-grid {
+  display:grid;
+  grid-template-columns:2.2fr 1fr 1fr 1fr;
+  gap:60px; margin-bottom:60px;
+}
+.footer-brand .nav-logo { display:block; font-size:30px; margin-bottom:18px; }
+.footer-brand p { font-size:13.5px;color:rgba(255,255,255,.38);line-height:1.85;max-width:280px;margin-bottom:24px; }
+.footer-social { display:flex;gap:10px; }
+.fs-btn {
+  width:38px;height:38px;border-radius:50%;
+  border:1px solid rgba(255,255,255,.12);
+  display:flex;align-items:center;justify-content:center;
+  transition:all .3s;
+}
+.fs-btn svg { width:15px;height:15px;stroke:rgba(255,255,255,.38);fill:none;stroke-width:1.8; }
+.fs-btn:hover { border-color:var(--aqua);background:var(--aqua-dim); }
+.fs-btn:hover svg { stroke:var(--aqua); }
+
+.footer-col h5 { font-size:10.5px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--aqua);margin-bottom:20px; }
+.footer-col ul li { margin-bottom:12px; }
+.footer-col ul a,.footer-col ul button {
+  font-size:13.5px;color:rgba(255,255,255,.38);text-decoration:none;
+  background:none;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;
+  padding:0;text-align:left;transition:color .3s;
+}
+.footer-col ul a:hover,.footer-col ul button:hover { color:var(--white); }
+
+.footer-bottom {
+  padding-top:28px;border-top:1px solid rgba(255,255,255,.06);
+  display:flex;justify-content:space-between;align-items:center;
+  flex-wrap:wrap;gap:14px;
+}
+.footer-bottom p { font-size:12.5px;color:rgba(255,255,255,.25); }
+.footer-bottom p span { color:var(--aqua); }
+.footer-badge {
+  display:flex;align-items:center;gap:8px;
+  padding:8px 16px;
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:100px; font-size:12px;
+  color:rgba(255,255,255,.4);
+}
+.footer-badge svg { width:13px;height:13px;stroke:var(--gold);fill:var(--gold); }
+
+/* ============================================================
+   RESPONSIVE — TABLET
+   ============================================================ */
+@media(max-width:1100px) {
+  .hero-inner { grid-template-columns:1fr; gap:48px; }
+  .hero-right { display:none; }
+  .about-grid { grid-template-columns:1fr; gap:48px; }
+  .about-img-composition { order:-1; height:340px; }
+  .aic-main { width:82%; height:290px; }
+  .aic-accent { width:55%; height:210px; }
+  .tl-item { grid-template-columns:1fr; gap:16px; }
+  .tl-item:nth-child(even) .tl-content { grid-column:1; }
+  .tl-item:nth-child(even) .tl-year { grid-column:1;grid-row:2;text-align:left; }
+  .timeline::before { left:0;transform:none; }
+  .tl-dot { left:0;transform:translateY(-50%); }
+  .tl-item { padding-left:30px; }
+  .kuliner-intro { grid-template-columns:1fr; gap:20px; }
+  .info-grid { grid-template-columns:1fr; gap:48px; }
+  .footer-grid { grid-template-columns:1fr 1fr; gap:40px; }
+}
+@media(max-width:900px) {
+  .nav-center,.nav-weather { display:none; }
+  .hamburger { display:flex; }
+  .navbar { padding:16px 5%; }
+  .popup-facts { grid-template-columns:1fr; }
+  .info-cards-grid { grid-template-columns:1fr; }
+}
+@media(max-width:680px) {
+  #hero,#tentang,#sejarah,#galeri,#destinasi,#kuliner,#info { padding-left:5%;padding-right:5%; }
+  #tentang,#sejarah,#destinasi,#kuliner,#info { padding-top:90px;padding-bottom:90px; }
+  #galeri { padding-top:90px;padding-bottom:70px; }
+  .hero-inner { padding-top:90px; }
+  .hero-stats { gap:0; }
+  .hero-stat { padding:0 14px; }
+  .hero-actions { flex-direction:column; }
+  .btn { justify-content:center; }
+  .gallery-mosaic {
+    grid-template-columns:1fr 1fr;
+    grid-auto-rows:auto;
+  }
+  .gm-1,.gm-2,.gm-3,.gm-4,.gm-5,.gm-6,.gm-7,.gm-8 {
+    grid-column:auto;grid-row:auto;height:180px;
+  }
+  .gm-1 { grid-column:1/3;height:220px; }
+  .gallery-top { flex-direction:column;align-items:flex-start; }
+  .about-highlights-grid { grid-template-columns:1fr; }
+  .footer-grid { grid-template-columns:1fr; gap:32px; }
+  .footer-bottom { flex-direction:column;text-align:center; }
+  .hero-scroll-cue { display:none; }
+  .popup-body { padding:20px; }
+  .popup-hero-img { height:200px; }
+  .mobile-logo { font-size:22px; }
+}
+@media(max-width:440px) {
+  .hero-stat { padding:0 10px; }
+  .stat-num { font-size:30px; }
+}
 
-  @media (max-width: 680px) {
-    .hero-title { font-size: clamp(50px, 14vw, 80px); }
-    .hero-stats { gap: 24px; }
-    .hero-cta { flex-direction: column; }
-    .btn-primary, .btn-outline { text-align: center; justify-content: center; }
-
-    .gallery-grid {
-      grid-template-columns: 1fr 1fr;
-    }
-    .g-1 { grid-column: 1 / 3; height: 220px; }
-    .g-2 { grid-column: 1 / 2; height: 180px; }
-    .g-3 { grid-column: 2 / 3; height: 180px; }
-    .g-4 { grid-column: 1 / 2; height: 180px; }
-    .g-5 { grid-column: 2 / 3; height: 180px; }
-    .g-6 { grid-column: 1 / 3; height: 200px; }
-
-    .gallery-header { flex-direction: column; align-items: flex-start; }
-
-    .info-cards { grid-template-columns: 1fr; }
-
-    .footer-top { grid-template-columns: 1fr; gap: 32px; }
-    .footer-bottom { flex-direction: column; text-align: center; }
-
-    .hero-scroll { display: none; }
-  }
-
-  @media (max-width: 480px) {
-    #tentang, #galeri, #destinasi, #kuliner, #info { padding: 80px 5%; }
-    nav { padding: 16px 5%; }
-    .about-img-badge { display: none; }
-  }
 </style>
+
 </head>
 <body>
-
-<!-- CURSOR -->
+<!-- SCROLL PROGRESS -->
+<div class="scroll-progress" id="scrollProgress"></div>
 <div class="cursor" id="cursor"></div>
 <div class="cursor-ring" id="cursorRing"></div>
 
 <!-- MOBILE MENU -->
 <div class="mobile-menu" id="mobileMenu">
-  <a href="#tentang" onclick="closeMobileMenu()">Tentang</a>
-  <a href="#galeri" onclick="closeMobileMenu()">Galeri</a>
-  <a href="#destinasi" onclick="closeMobileMenu()">Destinasi</a>
-  <a href="#kuliner" onclick="closeMobileMenu()">Kuliner</a>
-  <a href="#info" onclick="closeMobileMenu()">Info</a>
+  <button class="mobile-menu-close" onclick="closeMobileMenu()"><svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+  <div class="mobile-logo">BI<span>T</span>UNG</div>
+  <a href="#tentang" class="mobile-menu-item" onclick="closeMobileMenu()">
+    <div class="mm-icon"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+    <div class="mm-text"><span>Tentang Kota</span><small>Sejarah & Profil Bitung</small></div>
+    <svg class="arrow" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+  </a>
+  <a href="#sejarah" class="mobile-menu-item" onclick="closeMobileMenu()">
+    <div class="mm-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+    <div class="mm-text"><span>Sejarah</span><small>Timeline perjalanan kota</small></div>
+    <svg class="arrow" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+  </a>
+  <a href="#galeri" class="mobile-menu-item" onclick="closeMobileMenu()">
+    <div class="mm-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
+    <div class="mm-text"><span>Galeri Foto</span><small>Keindahan visual Bitung</small></div>
+    <svg class="arrow" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+  </a>
+  <a href="#destinasi" class="mobile-menu-item" onclick="closeMobileMenu()">
+    <div class="mm-icon"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/></svg></div>
+    <div class="mm-text"><span>Destinasi Wisata</span><small>Tempat terbaik untuk dikunjungi</small></div>
+    <svg class="arrow" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+  </a>
+  <a href="#kuliner" class="mobile-menu-item" onclick="closeMobileMenu()">
+    <div class="mm-icon"><svg viewBox="0 0 24 24"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 002-2V2M7 2v20M21 15V2a5 5 0 00-5 5v6c0 1.1.9 2 2 2h1v5"/></svg></div>
+    <div class="mm-text"><span>Kuliner Khas</span><small>Cita rasa autentik Minahasa</small></div>
+    <svg class="arrow" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+  </a>
+  <a href="#info" class="mobile-menu-item" onclick="closeMobileMenu()">
+    <div class="mm-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></div>
+    <div class="mm-text"><span>Info & Peta</span><small>Data dan fakta kota</small></div>
+    <svg class="arrow" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+  </a>
 </div>
 
-<!-- NAV -->
-<nav id="navbar">
-  <a class="nav-logo" href="#">BI<span>T</span>UNG</a>
-  <ul class="nav-links">
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+  <a class="nav-logo" href="#">BI<span class="dot">·</span>TUNG</a>
+  <ul class="nav-center">
     <li><a href="#tentang">Tentang</a></li>
+    <li><a href="#sejarah">Sejarah</a></li>
     <li><a href="#galeri">Galeri</a></li>
     <li><a href="#destinasi">Destinasi</a></li>
     <li><a href="#kuliner">Kuliner</a></li>
     <li><a href="#info">Info</a></li>
   </ul>
-  <div class="hamburger" id="hamburger" onclick="toggleMenu()">
-    <span></span><span></span><span></span>
+  <div class="nav-right">
+    <div class="nav-weather">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      <span class="temp">28°C</span>
+      <span>Bitung</span>
+    </div>
+    <button class="hamburger" id="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></button>
   </div>
 </nav>
 
-<!-- HERO -->
+<!-- ============================================================
+     HERO
+     ============================================================ -->
 <section id="hero">
   <div class="hero-bg"></div>
-  <div class="hero-grid"></div>
+  <div class="hero-noise"></div>
+  <div class="hero-grid-lines"></div>
   <div class="hero-orbs">
     <div class="orb orb-1"></div>
     <div class="orb orb-2"></div>
     <div class="orb orb-3"></div>
+    <div class="orb orb-4"></div>
   </div>
 
-  <div class="hero-content">
-    <div class="hero-tag">Sulawesi Utara · Indonesia</div>
-    <h1 class="hero-title">
-      <span class="line-1">Kota</span>
-      <span class="line-2">Bitung</span>
-      <span class="line-3">Permata di Ujung Timur</span>
-    </h1>
-    <p class="hero-subtitle">
-      Kota pelabuhan terbesar di Sulawesi Utara, pintu gerbang menuju keajaiban bawah laut Selat Lembeh dan keindahan alam yang tiada duanya.
-    </p>
-    <div class="hero-cta">
-      <a href="#destinasi" class="btn-primary">
-        Jelajahi Kota ↗
-      </a>
-      <a href="#galeri" class="btn-outline">
-        Lihat Galeri
-      </a>
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="hero-eyebrow">
+        Sulawesi Utara · Indonesia
+        <div class="live-dot"></div>
+      </div>
+      <h1 class="hero-title">
+        <span class="t1">Kota</span>
+        <span class="t2">Bitung</span>
+        <span class="t3">Permata di Ujung Timur Nusantara</span>
+      </h1>
+      <p class="hero-desc">
+        Kota pelabuhan bersejarah yang berdiri di antara Laut Maluku dan kaki Gunung Klabat — pusat industri perikanan, gerbang Kawasan Ekonomi Khusus, dan rumah bagi muck diving terbaik di dunia.
+      </p>
+      <div class="hero-actions">
+        <a href="#destinasi" class="btn btn-aqua">
+          Jelajahi Sekarang
+          <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="#galeri" class="btn btn-outline-w">
+          Lihat Galeri
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+        </a>
+      </div>
+
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <div class="stat-num" id="cnt1">0</div>
+          <div class="stat-label">km² Wilayah</div>
+          <div class="stat-sub">8 Kecamatan</div>
+        </div>
+        <div class="hero-stat">
+          <div class="stat-num" id="cnt2">0</div>
+          <div class="stat-label">Ribu Penduduk</div>
+          <div class="stat-sub">Est. 2023</div>
+        </div>
+        <div class="hero-stat">
+          <div class="stat-num" id="cnt3">0</div>
+          <div class="stat-label">Tahun Berdiri</div>
+          <div class="stat-sub">Kota definitif</div>
+        </div>
+        <div class="hero-stat">
+          <div class="stat-num">#1</div>
+          <div class="stat-label">Muck Diving</div>
+          <div class="stat-sub">Selat Lembeh</div>
+        </div>
+      </div>
     </div>
 
-    <div class="hero-stats">
-      <div class="stat-item">
-        <div class="stat-num">313<span style="font-size:0.6em">km²</span></div>
-        <div class="stat-label">Luas Wilayah</div>
+    <div class="hero-right">
+      <div class="hero-card-main">
+        <img src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=900&q=80" alt="Selat Lembeh"/>
       </div>
-      <div class="stat-item">
-        <div class="stat-num">219<span style="font-size:0.6em">rb</span></div>
-        <div class="stat-label">Penduduk</div>
+      <div class="hero-card-accent">
+        <img src="https://images.unsplash.com/photo-1596422846543-75c6fc197f11?w=700&q=80" alt="Pelabuhan Bitung"/>
       </div>
-      <div class="stat-item">
-        <div class="stat-num">8</div>
-        <div class="stat-label">Kecamatan</div>
+      <div class="hero-float-badge">
+        <div class="fb-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg></div>
+        <div class="fb-text"><strong>800+ Spesies Laut</strong><span>Selat Lembeh</span></div>
       </div>
-      <div class="stat-item">
-        <div class="stat-num">1<span style="font-size:0.6em">#</span></div>
-        <div class="stat-label">Muck Diving Dunia</div>
+      <div class="hero-float-badge2">
+        <div class="fb-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
+        <div class="fb-text"><strong>KEK Nasional</strong><span>Investasi 534 ha</span></div>
       </div>
     </div>
   </div>
-
-  <div class="hero-scroll">Scroll</div>
+  <div class="hero-scroll-cue">Scroll ke bawah</div>
 </section>
 
-<!-- WAVE -->
-<div class="wave">
-  <svg viewBox="0 0 1440 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M0,40 C360,80 1080,0 1440,40 L1440,80 L0,80 Z" fill="#fafbfc"/>
+<div class="wave-divider" style="background:var(--deeper)">
+  <svg viewBox="0 0 1440 80" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+    <path d="M0,40 C240,80 480,0 720,40 C960,80 1200,0 1440,40 L1440,80 L0,80 Z" fill="#fdf6ec"/>
   </svg>
 </div>
 
-<!-- TENTANG -->
+<!-- ============================================================
+     TENTANG
+     ============================================================ -->
 <section id="tentang">
-  <div class="about-inner">
-    <div class="about-text reveal">
-      <div class="section-tag">Mengenal Bitung</div>
-      <h2 class="section-title">Kota <em>Pelabuhan</em> yang Penuh Pesona</h2>
-      <p>Bitung adalah kota yang terletak di ujung timur Provinsi Sulawesi Utara, Indonesia. Dengan posisi strategis di Teluk Bitung, kota ini berkembang menjadi <strong>pusat industri perikanan</strong> dan pelabuhan internasional penting di kawasan timur Indonesia.</p>
-      <p>Kota ini dikenal sebagai <strong>"Kota Cakalang"</strong> — julukan yang lahir dari tradisi penangkapan ikan cakalang yang telah berlangsung turun-temurun. Industri perikanan dan pengolahan ikan menjadi tulang punggung perekonomian kota yang terus berkembang.</p>
-      <p>Namun lebih dari sekadar pelabuhan, Bitung menyimpan <strong>keajaiban alam bawah laut</strong> yang diakui dunia melalui Selat Lembeh — surga bagi para penyelam dan pecinta keindahan laut yang tak tertandingi.</p>
-    </div>
+  <div class="about-wrap">
+    <div class="about-grid">
+      <div class="about-img-composition reveal-left">
+        <div class="aic-main">
+          <img src="https://images.unsplash.com/photo-1596422846543-75c6fc197f11?w=900&q=80" alt="Pelabuhan Bitung" loading="lazy"/>
+        </div>
+        <div class="aic-accent">
+          <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=700&q=80" alt="Pantai Bitung" loading="lazy"/>
+        </div>
+        <div class="aic-badge"><span class="yr">1878</span><span class="lb">Berdiri</span></div>
+        <div class="aic-tag"><span>313</span><small>km² Wilayah</small></div>
+      </div>
 
-    <div class="about-img-wrap reveal reveal-delay-2">
-      <div class="about-img-stack">
-        <div class="about-img about-img-main">
-          <img src="https://images.unsplash.com/photo-1596422846543-75c6fc197f11?w=800&q=80" alt="Pelabuhan Bitung" loading="lazy"/>
-        </div>
-        <div class="about-img about-img-accent">
-          <img src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=600&q=80" alt="Selat Lembeh" loading="lazy"/>
-        </div>
-        <div class="about-badge">
-          <span>1878</span>
-          <span>Berdiri</span>
+      <div class="about-content reveal-right">
+        <div class="sec-label teal">Mengenal Bitung</div>
+        <h2 class="sec-title dark">Kota <em>Pelabuhan</em><br>yang Penuh Pesona</h2>
+        <p class="about-intro">
+          Bitung adalah kota yang terletak di ujung timur Provinsi Sulawesi Utara, Indonesia. Dengan posisi strategis di Teluk Bitung, kota ini berkembang menjadi <strong>pusat industri perikanan dan pelabuhan internasional</strong> yang penting di kawasan timur Indonesia. Dikenal dengan julukan <em>"Kota Cakalang"</em>, sebuah identitas yang lahir dari kearifan lokal nelayan yang telah berpuluh tahun mengarungi lautan.
+        </p>
+        <p class="about-intro">
+          Kota ini juga merupakan bagian dari <strong>Kawasan Ekonomi Khusus (KEK) Bitung</strong> yang ditetapkan pemerintah sebagai salah satu motor pertumbuhan ekonomi nasional, dengan luas 534 hektare yang diperuntukkan bagi industri pengolahan, logistik, dan ekspor.
+        </p>
+
+        <div class="about-highlights-grid">
+          <div class="ahl-card">
+            <div class="ahl-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg></div>
+            <div class="ahl-info"><h5>Koordinat Geografis</h5><p>1°28' LU — 125°12' BT</p></div>
+          </div>
+          <div class="ahl-card">
+            <div class="ahl-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg></div>
+            <div class="ahl-info"><h5>Iklim Tropis</h5><p>24 – 31°C, sepanjang tahun</p></div>
+          </div>
+          <div class="ahl-card">
+            <div class="ahl-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></div>
+            <div class="ahl-info"><h5>Populasi</h5><p>±219.000 jiwa (2023)</p></div>
+          </div>
+          <div class="ahl-card">
+            <div class="ahl-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
+            <div class="ahl-info"><h5>KEK Nasional</h5><p>534 ha lahan industri khusus</p></div>
+          </div>
+          <div class="ahl-card">
+            <div class="ahl-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg></div>
+            <div class="ahl-info"><h5>Akses Transportasi</h5><p>2 jam dari Bandara Manado</p></div>
+          </div>
+          <div class="ahl-card">
+            <div class="ahl-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064"/></svg></div>
+            <div class="ahl-info"><h5>Pelabuhan Internasional</h5><p>Hub ekspor Asia Pasifik</p></div>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- GALERI -->
+<div class="wave-divider" style="background:var(--cream)">
+  <svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+    <path d="M0,30 C360,60 1080,0 1440,30 L1440,0 L0,0 Z" fill="var(--deep)"/>
+  </svg>
+</div>
+
+<!-- ============================================================
+     SEJARAH TIMELINE
+     ============================================================ -->
+<section id="sejarah">
+  <div class="sejarah-wrap">
+    <div class="sejarah-header reveal">
+      <div class="sec-label">Perjalanan Waktu</div>
+      <h2 class="sec-title">Sejarah <em>Kota Bitung</em></h2>
+      <p class="sec-subtitle" style="margin:16px auto 0">Dari desa nelayan kecil hingga kota pelabuhan industri bertaraf internasional</p>
+    </div>
+
+    <div class="timeline">
+      <div class="tl-item reveal">
+        <div class="tl-year reveal-left delay-2">
+          <div class="yr-num">1878</div>
+          <div class="yr-label">Awal Mula</div>
+        </div>
+        <div class="tl-dot"></div>
+        <div class="tl-content reveal-right delay-3">
+          <span class="tag-pill tl-tag">Pendirian</span>
+          <h3>Kampung Bitung Berdiri</h3>
+          <p>Bitung pada awalnya merupakan sebuah kampung kecil yang dihuni oleh suku Bitung, nelayan-nelayan tangguh yang menggantungkan hidup pada hasil laut Maluku yang melimpah. Posisinya di teluk yang terlindung menjadi daya tarik bagi para pedagang dan pelaut.</p>
+        </div>
+      </div>
+
+      <div class="tl-item reveal">
+        <div class="tl-content reveal-left delay-2">
+          <span class="tag-pill tl-tag">Perkembangan</span>
+          <h3>Era Kolonial & Perdagangan</h3>
+          <p>Pada masa kolonial Belanda, Bitung mulai dikenal sebagai titik perdagangan kopra, cengkeh, dan hasil laut. Pelabuhan alamnya yang dalam dan terlindung menarik minat para pedagang dari berbagai penjuru Nusantara dan mancanegara.</p>
+        </div>
+        <div class="tl-dot"></div>
+        <div class="tl-year reveal-right delay-3">
+          <div class="yr-num">1920</div>
+          <div class="yr-label">Era Kolonial</div>
+        </div>
+      </div>
+
+      <div class="tl-item reveal">
+        <div class="tl-year reveal-left delay-2">
+          <div class="yr-num">1975</div>
+          <div class="yr-label">Pelabuhan</div>
+        </div>
+        <div class="tl-dot"></div>
+        <div class="tl-content reveal-right delay-3">
+          <span class="tag-pill tl-tag">Infrastruktur</span>
+          <h3>Pelabuhan Modern Dibangun</h3>
+          <p>Pemerintah Indonesia membangun Pelabuhan Bitung sebagai pelabuhan samudera modern di Kawasan Timur Indonesia. Ini menjadi tonggak transformasi Bitung dari desa nelayan menjadi kota pelabuhan industri yang signifikan secara nasional.</p>
+        </div>
+      </div>
+
+      <div class="tl-item reveal">
+        <div class="tl-content reveal-left delay-2">
+          <span class="tag-pill tl-tag">Otonomi</span>
+          <h3>Bitung Resmi Jadi Kota Madya</h3>
+          <p>Berdasarkan UU No. 7 Tahun 1990, Bitung resmi ditetapkan sebagai Kotamadya, terpisah dari Kabupaten Minahasa. Status ini memberikan otonomi penuh dan mendorong percepatan pembangunan kota secara lebih terstruktur dan terarah.</p>
+        </div>
+        <div class="tl-dot"></div>
+        <div class="tl-year reveal-right delay-3">
+          <div class="yr-num">1990</div>
+          <div class="yr-label">Kota Madya</div>
+        </div>
+      </div>
+
+      <div class="tl-item reveal">
+        <div class="tl-year reveal-left delay-2">
+          <div class="yr-num">2014</div>
+          <div class="yr-label">KEK</div>
+        </div>
+        <div class="tl-dot"></div>
+        <div class="tl-content reveal-right delay-3">
+          <span class="tag-pill gold tl-tag">Milestone</span>
+          <h3>KEK Bitung Ditetapkan</h3>
+          <p>Pemerintah menetapkan Bitung sebagai Kawasan Ekonomi Khusus (KEK) berdasarkan PP No. 32 Tahun 2014. Kawasan seluas 534 hektare ini dirancang untuk menarik investasi industri pengolahan ikan, logistik, dan manufaktur bertaraf internasional.</p>
+        </div>
+      </div>
+
+      <div class="tl-item reveal">
+        <div class="tl-content reveal-left delay-2">
+          <span class="tag-pill coral tl-tag">Kini</span>
+          <h3>Bitung Modern & Berkelanjutan</h3>
+          <p>Hari ini Bitung tumbuh sebagai kota modern dengan visi pembangunan berkelanjutan. Selat Lembeh diakui dunia sebagai surga diving, KEK terus berkembang, dan industri perikanan mengekspor produk ke puluhan negara — membuktikan Bitung sebagai permata sejati Indonesia Timur.</p>
+        </div>
+        <div class="tl-dot" style="background:var(--gold);box-shadow:0 0 0 4px rgba(232,184,75,.3);"></div>
+        <div class="tl-year reveal-right delay-3">
+          <div class="yr-num" style="color:var(--gold);-webkit-text-stroke:0">2024</div>
+          <div class="yr-label">Masa Kini</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wave-divider" style="background:var(--deep)">
+  <svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+    <path d="M0,0 C480,60 960,0 1440,40 L1440,60 L0,60 Z" fill="var(--deeper)"/>
+  </svg>
+</div>
+
+<!-- ============================================================
+     GALERI
+     ============================================================ -->
 <section id="galeri">
-  <div class="gallery-header">
-    <div>
-      <div class="section-tag" style="color:var(--aqua)">Foto Kota</div>
-      <h2 class="section-title reveal">Galeri <em style="color:var(--aqua);font-style:italic">Visual</em></h2>
-    </div>
-    <div class="gallery-tabs reveal">
-      <button class="tab active" onclick="filterGallery('all', this)">Semua</button>
-      <button class="tab" onclick="filterGallery('alam', this)">Alam</button>
-      <button class="tab" onclick="filterGallery('laut', this)">Laut</button>
-      <button class="tab" onclick="filterGallery('kota', this)">Kota</button>
-    </div>
-  </div>
-
-  <div class="gallery-grid" id="galleryGrid">
-    <div class="g-item g-1" data-cat="laut" onclick="openLightbox(this)" data-title="Selat Lembeh" data-desc="Surga diving kelas dunia">
-      <img src="https://images.unsplash.com/photo-1583212292454-1fe6229603b7?w=900&q=80" alt="Selat Lembeh"/>
-      <div class="g-overlay"><div class="g-overlay-text"><h4>Selat Lembeh</h4><p>Diving · Snorkeling</p></div></div>
-    </div>
-    <div class="g-item g-2" data-cat="kota" onclick="openLightbox(this)" data-title="Pelabuhan Bitung" data-desc="Pelabuhan internasional">
-      <img src="https://images.unsplash.com/photo-1519455953755-af066f52f1d6?w=600&q=80" alt="Pelabuhan"/>
-      <div class="g-overlay"><div class="g-overlay-text"><h4>Pelabuhan Bitung</h4><p>Infrastruktur · Kota</p></div></div>
-    </div>
-    <div class="g-item g-3" data-cat="alam" onclick="openLightbox(this)" data-title="Gunung Klabat" data-desc="Puncak tertinggi Sulawesi Utara">
-      <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=700&q=80" alt="Gunung"/>
-      <div class="g-overlay"><div class="g-overlay-text"><h4>Gunung Klabat</h4><p>Alam · Pendakian</p></div></div>
-    </div>
-    <div class="g-item g-4" data-cat="alam" onclick="openLightbox(this)" data-title="Pantai Bitung" data-desc="Keindahan alam pesisir">
-      <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=80" alt="Pantai"/>
-      <div class="g-overlay"><div class="g-overlay-text"><h4>Pantai Bitung</h4><p>Wisata · Alam</p></div></div>
-    </div>
-    <div class="g-item g-5" data-cat="laut" onclick="openLightbox(this)" data-title="Bawah Laut Lembeh" data-desc="Ekosistem unik muck diving">
-      <img src="https://images.unsplash.com/photo-1546026423-cc4642628d2b?w=700&q=80" alt="Bawah Laut"/>
-      <div class="g-overlay"><div class="g-overlay-text"><h4>Biota Laut</h4><p>Laut · Diving</p></div></div>
-    </div>
-    <div class="g-item g-6" data-cat="kota" onclick="openLightbox(this)" data-title="Senja di Bitung" data-desc="Pemandangan matahari terbenam">
-      <img src="https://images.unsplash.com/photo-1568702846914-96b305d2aaeb?w=800&q=80" alt="Senja"/>
-      <div class="g-overlay"><div class="g-overlay-text"><h4>Senja di Bitung</h4><p>Panorama · Kota</p></div></div>
-    </div>
-  </div>
-</section>
-
-<!-- WAVE 2 -->
-<div class="wave" style="background:var(--deep)">
-  <svg viewBox="0 0 1440 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M0,40 C480,80 960,0 1440,40 L1440,0 L0,0 Z" fill="#f5e6c8"/>
-  </svg>
-</div>
-
-<!-- DESTINASI -->
-<section id="destinasi">
-  <div class="dest-header reveal">
-    <div class="section-tag">Wisata Unggulan</div>
-    <h2 class="section-title">Destinasi <em>Terbaik</em></h2>
-    <p style="max-width:500px;margin:16px auto 0;color:rgba(26,26,46,0.6);font-size:16px;line-height:1.7;">Temukan berbagai objek wisata menakjubkan yang tersebar di Kota Bitung dan sekitarnya</p>
-  </div>
-
-  <div class="dest-grid">
-    <div class="dest-card reveal reveal-delay-1">
-      <div class="dest-img">
-        <img src="https://images.unsplash.com/photo-1583212292454-1fe6229603b7?w=700&q=80" alt="Selat Lembeh" loading="lazy"/>
-        <div class="dest-cat">Diving</div>
+  <div class="gallery-wrap">
+    <div class="gallery-top">
+      <div class="reveal">
+        <div class="sec-label">Foto Kota</div>
+        <h2 class="sec-title" style="color:var(--white)">Galeri <em>Visual</em></h2>
       </div>
-      <div class="dest-body">
-        <h3>Selat Lembeh</h3>
-        <p>Diakui sebagai destinasi muck diving terbaik di dunia. Tempat tinggal ribuan spesies makhluk laut eksotis yang tak ditemukan di tempat lain.</p>
-        <div class="dest-meta">
-          <div class="dest-rating">
-            <span class="stars">★★★★★</span> 4.9
-          </div>
-          <a href="#" class="dest-link">Explore →</a>
-        </div>
+      <div class="gallery-filters reveal delay-2">
+        <button class="gf-btn active" onclick="filterGal('all',this)">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+          Semua
+        </button>
+        <button class="gf-btn" onclick="filterGal('alam',this)">
+          <svg viewBox="0 0 24 24"><path d="M17 8C8 10 5.9 16.17 3.82 19.25a2 2 0 001.7 3.06C8 22 12 20 15 17c2-2 3.25-5 2-8z"/></svg>
+          Alam
+        </button>
+        <button class="gf-btn" onclick="filterGal('laut',this)">
+          <svg viewBox="0 0 24 24"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
+          Laut
+        </button>
+        <button class="gf-btn" onclick="filterGal('kota',this)">
+          <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+          Kota
+        </button>
+        <button class="gf-btn" onclick="filterGal('kuliner',this)">
+          <svg viewBox="0 0 24 24"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 002-2V2M7 2v20"/></svg>
+          Kuliner
+        </button>
       </div>
     </div>
 
-    <div class="dest-card reveal reveal-delay-2">
-      <div class="dest-img">
-        <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=700&q=80" alt="Taman Nasional Bogani" loading="lazy"/>
-        <div class="dest-cat">Ekowisata</div>
+    <div class="gallery-mosaic" id="galleryGrid">
+      <div class="gm-item gm-1 reveal" data-cat="laut"    onclick="openLightbox(this)" data-t="Selat Lembeh" data-d="Surga muck diving #1 dunia">
+        <img src="https://images.unsplash.com/photo-1583212292454-1fe6229603b7?w=900&q=80" alt="Selat Lembeh" loading="lazy"/>
+        <div class="gm-overlay"><div class="gm-expand"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div><h4>Selat Lembeh</h4><p>Laut · Diving</p></div>
       </div>
-      <div class="dest-body">
-        <h3>Taman Nasional Bogani</h3>
-        <p>Kawasan konservasi hutan tropis yang menjadi habitat satwa langka seperti anoa, babirusa, dan maleo. Surga bagi pecinta alam liar.</p>
-        <div class="dest-meta">
-          <div class="dest-rating">
-            <span class="stars">★★★★★</span> 4.8
-          </div>
-          <a href="#" class="dest-link">Explore →</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="dest-card reveal reveal-delay-3">
-      <div class="dest-img">
+      <div class="gm-item gm-2 reveal delay-1" data-cat="alam" onclick="openLightbox(this)" data-t="Gunung Klabat" data-d="Puncak tertinggi Sulawesi Utara, 1.995 mdpl">
         <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=700&q=80" alt="Gunung Klabat" loading="lazy"/>
-        <div class="dest-cat">Pendakian</div>
+        <div class="gm-overlay"><div class="gm-expand"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div><h4>Gunung Klabat</h4><p>Alam · Pendakian</p></div>
       </div>
-      <div class="dest-body">
-        <h3>Gunung Klabat</h3>
-        <p>Puncak tertinggi di Sulawesi Utara (1.995 mdpl). Menawarkan panorama spektakuler Kota Bitung, Manado, dan kepulauan sekitarnya.</p>
-        <div class="dest-meta">
-          <div class="dest-rating">
-            <span class="stars">★★★★☆</span> 4.6
-          </div>
-          <a href="#" class="dest-link">Explore →</a>
-        </div>
+      <div class="gm-item gm-3 reveal delay-2" data-cat="kota" onclick="openLightbox(this)" data-t="Pelabuhan Bitung" data-d="Pelabuhan samudera terbesar di Indonesia Timur">
+        <img src="https://images.unsplash.com/photo-1519455953755-af066f52f1d6?w=700&q=80" alt="Pelabuhan" loading="lazy"/>
+        <div class="gm-overlay"><div class="gm-expand"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div><h4>Pelabuhan Bitung</h4><p>Kota · Industri</p></div>
       </div>
-    </div>
-
-    <div class="dest-card reveal reveal-delay-4">
-      <div class="dest-img">
-        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=700&q=80" alt="Pantai Bitung" loading="lazy"/>
-        <div class="dest-cat">Pantai</div>
+      <div class="gm-item gm-4 reveal delay-1" data-cat="laut"  onclick="openLightbox(this)" data-t="Biota Laut Lembeh" data-d="800+ spesies makhluk laut eksotis nan langka">
+        <img src="https://images.unsplash.com/photo-1546026423-cc4642628d2b?w=700&q=80" alt="Biota Laut" loading="lazy"/>
+        <div class="gm-overlay"><div class="gm-expand"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div><h4>Biota Laut Unik</h4><p>Laut · Satwa</p></div>
       </div>
-      <div class="dest-body">
-        <h3>Pantai Makawidey</h3>
-        <p>Pantai yang tenang dengan air biru jernih dan pasir yang lembut. Sempurna untuk bersantai, berenang, dan menikmati senja Bitung.</p>
-        <div class="dest-meta">
-          <div class="dest-rating">
-            <span class="stars">★★★★☆</span> 4.5
-          </div>
-          <a href="#" class="dest-link">Explore →</a>
-        </div>
+      <div class="gm-item gm-5 reveal delay-3" data-cat="alam" onclick="openLightbox(this)" data-t="Hutan Tropis Bogani" data-d="Taman Nasional Bogani Nani Wartabone 287.000 ha">
+        <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800&q=80" alt="Hutan Bogani" loading="lazy"/>
+        <div class="gm-overlay"><div class="gm-expand"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div><h4>TN Bogani Nani</h4><p>Alam · Konservasi</p></div>
+      </div>
+      <div class="gm-item gm-6 reveal delay-2" data-cat="alam" onclick="openLightbox(this)" data-t="Pantai Bitung" data-d="Pantai berpasir putih dengan air biru jernih">
+        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&q=80" alt="Pantai" loading="lazy"/>
+        <div class="gm-overlay"><div class="gm-expand"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div><h4>Pantai Bitung</h4><p>Alam · Wisata</p></div>
+      </div>
+      <div class="gm-item gm-7 reveal delay-4" data-cat="kuliner" onclick="openLightbox(this)" data-t="Kuliner Khas Bitung" data-d="Aneka sajian laut segar khas Minahasa">
+        <img src="https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=700&q=80" alt="Kuliner" loading="lazy"/>
+        <div class="gm-overlay"><div class="gm-expand"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div><h4>Kuliner Khas</h4><p>Makanan · Lokal</p></div>
+      </div>
+      <div class="gm-item gm-8 reveal delay-3" data-cat="kota" onclick="openLightbox(this)" data-t="Senja di Bitung" data-d="Panorama sunset di atas kota pelabuhan">
+        <img src="https://images.unsplash.com/photo-1568702846914-96b305d2aaeb?w=800&q=80" alt="Senja" loading="lazy"/>
+        <div class="gm-overlay"><div class="gm-expand"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div><h4>Senja di Bitung</h4><p>Kota · Panorama</p></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- WAVE 3 -->
-<div class="wave" style="background:var(--sand)">
-  <svg viewBox="0 0 1440 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M0,0 C360,80 1080,0 1440,60 L1440,80 L0,80 Z" fill="#0a3d5c"/>
+<div class="wave-divider" style="background:var(--deeper)">
+  <svg viewBox="0 0 1440 70" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+    <path d="M0,35 C480,70 960,0 1440,50 L1440,0 L0,0 Z" fill="var(--cream)"/>
   </svg>
 </div>
 
-<!-- KULINER -->
+<!-- ============================================================
+     DESTINASI
+     ============================================================ -->
+<section id="destinasi">
+  <div class="dest-wrap">
+    <div class="dest-header reveal">
+      <div class="sec-label teal">Wisata Unggulan</div>
+      <h2 class="sec-title dark">Destinasi <em>Terbaik</em> Bitung</h2>
+      <p class="sec-subtitle dark" style="margin:16px auto 0">Klik kartu atau tombol info untuk informasi lengkap, tips kunjungan, dan detail setiap destinasi</p>
+    </div>
+
+    <div class="dest-grid">
+
+      <div class="dest-card reveal delay-1" onclick="openDestPopup('lembeh')">
+        <div class="dest-card-img">
+          <img src="https://images.unsplash.com/photo-1583212292454-1fe6229603b7?w=800&q=80" alt="Selat Lembeh" loading="lazy"/>
+          <div class="dest-card-img-overlay"></div>
+          <span class="dest-badge">Diving</span>
+          <div class="dest-info-trigger" onclick="event.stopPropagation();openDestPopup('lembeh')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></div>
+        </div>
+        <div class="dest-card-body">
+          <div style="margin-bottom:6px"><span class="tag-pill">Dunia</span></div>
+          <h3>Selat Lembeh</h3>
+          <p>Diakui secara internasional sebagai destinasi muck diving terbaik di dunia — rumah bagi 800+ spesies biota laut eksotis yang tidak ditemukan di tempat lain di bumi.</p>
+          <div class="dest-card-footer">
+            <div class="dest-rating"><span class="dest-stars">★★★★★</span><span class="dest-score">4.9</span><span class="dest-reviews">(2.400+ ulasan)</span></div>
+            <button class="dest-more">Detail <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+          </div>
+        </div>
+      </div>
+
+      <div class="dest-card reveal delay-2" onclick="openDestPopup('bogani')">
+        <div class="dest-card-img">
+          <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800&q=80" alt="Bogani" loading="lazy"/>
+          <div class="dest-card-img-overlay"></div>
+          <span class="dest-badge">Ekowisata</span>
+          <div class="dest-info-trigger" onclick="event.stopPropagation();openDestPopup('bogani')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></div>
+        </div>
+        <div class="dest-card-body">
+          <div style="margin-bottom:6px"><span class="tag-pill">Konservasi</span></div>
+          <h3>TN Bogani Nani Wartabone</h3>
+          <p>Hutan tropis seluas 287.115 hektare, habitat satwa endemik langka seperti anoa, babirusa, burung maleo, dan rangkong Sulawesi yang dilindungi.</p>
+          <div class="dest-card-footer">
+            <div class="dest-rating"><span class="dest-stars">★★★★★</span><span class="dest-score">4.8</span><span class="dest-reviews">(980+ ulasan)</span></div>
+            <button class="dest-more">Detail <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+          </div>
+        </div>
+      </div>
+
+      <div class="dest-card reveal delay-3" onclick="openDestPopup('klabat')">
+        <div class="dest-card-img">
+          <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&q=80" alt="Klabat" loading="lazy"/>
+          <div class="dest-card-img-overlay"></div>
+          <span class="dest-badge">Pendakian</span>
+          <div class="dest-info-trigger" onclick="event.stopPropagation();openDestPopup('klabat')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></div>
+        </div>
+        <div class="dest-card-body">
+          <div style="margin-bottom:6px"><span class="tag-pill">Petualangan</span></div>
+          <h3>Gunung Klabat</h3>
+          <p>Puncak tertinggi Sulawesi Utara (1.995 mdpl), menawarkan panorama 360° spektakuler: Bitung, Manado, Kepulauan Sangihe, hingga Filipina.</p>
+          <div class="dest-card-footer">
+            <div class="dest-rating"><span class="dest-stars">★★★★☆</span><span class="dest-score">4.6</span><span class="dest-reviews">(1.200+ ulasan)</span></div>
+            <button class="dest-more">Detail <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+          </div>
+        </div>
+      </div>
+
+      <div class="dest-card reveal delay-4" onclick="openDestPopup('makawidey')">
+        <div class="dest-card-img">
+          <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&q=80" alt="Pantai" loading="lazy"/>
+          <div class="dest-card-img-overlay"></div>
+          <span class="dest-badge">Pantai</span>
+          <div class="dest-info-trigger" onclick="event.stopPropagation();openDestPopup('makawidey')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></div>
+        </div>
+        <div class="dest-card-body">
+          <div style="margin-bottom:6px"><span class="tag-pill">Relaksasi</span></div>
+          <h3>Pantai Makawidey</h3>
+          <p>Pantai tenang dengan air biru jernih menghadap Selat Lembeh. Tempat terbaik untuk menikmati sunset Bitung yang menakjubkan bersama keluarga.</p>
+          <div class="dest-card-footer">
+            <div class="dest-rating"><span class="dest-stars">★★★★☆</span><span class="dest-score">4.5</span><span class="dest-reviews">(760+ ulasan)</span></div>
+            <button class="dest-more">Detail <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+          </div>
+        </div>
+      </div>
+
+      <div class="dest-card reveal delay-5" onclick="openDestPopup('kek')">
+        <div class="dest-card-img">
+          <img src="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=800&q=80" alt="KEK" loading="lazy"/>
+          <div class="dest-card-img-overlay"></div>
+          <span class="dest-badge">Industri</span>
+          <div class="dest-info-trigger" onclick="event.stopPropagation();openDestPopup('kek')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></div>
+        </div>
+        <div class="dest-card-body">
+          <div style="margin-bottom:6px"><span class="tag-pill gold">KEK Nasional</span></div>
+          <h3>Kawasan Ekonomi Khusus</h3>
+          <p>KEK Bitung seluas 534 hektare dirancang sebagai pusat industri pengolahan ikan, logistik, dan manufaktur bertaraf internasional di Indonesia Timur.</p>
+          <div class="dest-card-footer">
+            <div class="dest-rating"><span class="dest-stars">★★★★☆</span><span class="dest-score">4.4</span><span class="dest-reviews">(340+ ulasan)</span></div>
+            <button class="dest-more">Detail <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+          </div>
+        </div>
+      </div>
+
+      <div class="dest-card reveal delay-6" onclick="openDestPopup('laut')">
+        <div class="dest-card-img">
+          <img src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=800&q=80" alt="Laut" loading="lazy"/>
+          <div class="dest-card-img-overlay"></div>
+          <span class="dest-badge">Bahari</span>
+          <div class="dest-info-trigger" onclick="event.stopPropagation();openDestPopup('laut')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></div>
+        </div>
+        <div class="dest-card-body">
+          <div style="margin-bottom:6px"><span class="tag-pill">Ekspedisi</span></div>
+          <h3>Pulau Lembeh</h3>
+          <p>Pulau memanjang di depan kota Bitung, menawarkan wisata bahari, snorkeling, pantai tersembunyi, dan kehidupan masyarakat nelayan yang autentik.</p>
+          <div class="dest-card-footer">
+            <div class="dest-rating"><span class="dest-stars">★★★★☆</span><span class="dest-score">4.5</span><span class="dest-reviews">(620+ ulasan)</span></div>
+            <button class="dest-more">Detail <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="wave-divider" style="background:var(--cream)">
+  <svg viewBox="0 0 1440 70" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+    <path d="M0,0 C360,70 1080,0 1440,55 L1440,70 L0,70 Z" fill="var(--ocean)"/>
+  </svg>
+</div>
+
+<!-- ============================================================
+     KULINER
+     ============================================================ -->
 <section id="kuliner">
-  <div class="food-header reveal">
-    <div>
-      <div class="section-tag" style="color:var(--gold)">Cita Rasa Lokal</div>
-      <h2 class="section-title">Kuliner <em style="color:var(--gold);font-style:italic">Khas</em> Bitung</h2>
-    </div>
-    <p class="food-desc">
-      Kota Bitung kaya akan kuliner khas yang memadukan cita rasa laut segar dengan rempah khas Minahasa. Setiap hidangan adalah cerita tentang kearifan lokal yang tak ternilai.
-    </p>
-  </div>
-
-  <div class="food-grid">
-    <div class="food-card reveal reveal-delay-1">
-      <div class="food-img">
-        <img src="https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=600&q=80" alt="Ikan Cakalang" loading="lazy"/>
+  <div class="kuliner-wrap">
+    <div class="kuliner-intro">
+      <div class="reveal">
+        <div class="sec-label gold">Cita Rasa Lokal</div>
+        <h2 class="sec-title gold">Kuliner <em>Khas</em><br>Kota Bitung</h2>
       </div>
-      <div class="food-body">
-        <h4>Cakalang Fufu</h4>
-        <p>Ikan cakalang asap khas Minahasa. Dagingnya padat, beraroma khas, dan penuh cita rasa yang membekas.</p>
-        <span class="food-tag">Seafood · Tradisional</span>
-      </div>
+      <p class="sec-subtitle reveal delay-2">Kota Bitung kaya akan kuliner autentik yang memadukan kesegaran hasil laut dengan kekayaan rempah Minahasa. Klik kartu untuk informasi lengkap, bahan-bahan, dan cara memasak.</p>
     </div>
 
-    <div class="food-card reveal reveal-delay-2">
-      <div class="food-img">
-        <img src="https://images.unsplash.com/photo-1547592166-23ac45744acd?w=600&q=80" alt="Tinutuan" loading="lazy"/>
-      </div>
-      <div class="food-body">
-        <h4>Tinutuan</h4>
-        <p>Bubur khas Manado dengan campuran sayuran segar dan rempah. Hidangan sehat yang kaya warna dan nutrisi.</p>
-        <span class="food-tag">Bubur · Sarapan</span>
-      </div>
-    </div>
+    <div class="food-grid">
 
-    <div class="food-card reveal reveal-delay-3">
-      <div class="food-img">
-        <img src="https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=600&q=80" alt="Rica-Rica" loading="lazy"/>
+      <div class="food-card reveal delay-1" onclick="openFoodPopup('cakalang')">
+        <div class="food-card-img">
+          <img src="https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=700&q=80" alt="Cakalang Fufu" loading="lazy"/>
+          <div class="food-card-img-overlay"></div>
+          <div class="food-heat"><span class="on"></span><span></span><span></span><span></span><span></span></div>
+          <div class="food-info-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></div>
+        </div>
+        <div class="food-card-body">
+          <h4>Cakalang Fufu</h4>
+          <p>Ikan cakalang asap khas Minahasa — dagingnya padat, beraroma kayu asap khas, dan merupakan ikon oleh-oleh Bitung.</p>
+          <div class="food-card-footer">
+            <span class="tag-pill gold">Tradisional</span>
+            <button class="food-cta">Resep & Info <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+          </div>
+        </div>
       </div>
-      <div class="food-body">
-        <h4>Ikan Rica-Rica</h4>
-        <p>Ikan laut segar dimasak dengan sambal rica pedas yang menggugah selera. Cita rasa berani khas Sulawesi.</p>
-        <span class="food-tag">Pedas · Seafood</span>
-      </div>
-    </div>
 
-    <div class="food-card reveal reveal-delay-4">
-      <div class="food-img">
-        <img src="https://images.unsplash.com/photo-1528605248644-14dd04022da1?w=600&q=80" alt="Pasar Ikan" loading="lazy"/>
+      <div class="food-card reveal delay-2" onclick="openFoodPopup('tinutuan')">
+        <div class="food-card-img">
+          <img src="https://images.unsplash.com/photo-1547592166-23ac45744acd?w=700&q=80" alt="Tinutuan" loading="lazy"/>
+          <div class="food-card-img-overlay"></div>
+          <div class="food-heat"><span class="on"></span><span></span><span></span><span></span><span></span></div>
+          <div class="food-info-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></div>
+        </div>
+        <div class="food-card-body">
+          <h4>Tinutuan</h4>
+          <p>Bubur sehat khas Manado — kaya warna dari campuran labu, kangkung, bayam, dan rempah pilihan Minahasa.</p>
+          <div class="food-card-footer">
+            <span class="tag-pill">Sarapan Sehat</span>
+            <button class="food-cta">Resep & Info <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+          </div>
+        </div>
       </div>
-      <div class="food-body">
-        <h4>Ikan Bakar Segar</h4>
-        <p>Ikan hasil tangkapan langsung dari nelayan lokal, dibakar segar dengan bumbu khas dan disajikan dengan plecing.</p>
-        <span class="food-tag">Bakar · Lokal</span>
+
+      <div class="food-card reveal delay-3" onclick="openFoodPopup('rica')">
+        <div class="food-card-img">
+          <img src="https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=700&q=80" alt="Rica-Rica" loading="lazy"/>
+          <div class="food-card-img-overlay"></div>
+          <div class="food-heat"><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span></div>
+          <div class="food-info-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></div>
+        </div>
+        <div class="food-card-body">
+          <h4>Ikan Rica-Rica</h4>
+          <p>Ikan laut segar dimasak dengan bumbu rica pedas nan berani — cita rasa Sulawesi yang paling khas dan dikenal.</p>
+          <div class="food-card-footer">
+            <span class="tag-pill coral">Sangat Pedas</span>
+            <button class="food-cta">Resep & Info <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+          </div>
+        </div>
       </div>
+
+      <div class="food-card reveal delay-4" onclick="openFoodPopup('bakar')">
+        <div class="food-card-img">
+          <img src="https://images.unsplash.com/photo-1528605248644-14dd04022da1?w=700&q=80" alt="Ikan Bakar" loading="lazy"/>
+          <div class="food-card-img-overlay"></div>
+          <div class="food-heat"><span class="on"></span><span class="on"></span><span class="on"></span><span></span><span></span></div>
+          <div class="food-info-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></div>
+        </div>
+        <div class="food-card-body">
+          <h4>Ikan Bakar Segar</h4>
+          <p>Ikan tangkapan nelayan pagi hari, dibakar arang kelapa sore harinya — pengalaman kuliner paling autentik di Bitung.</p>
+          <div class="food-card-footer">
+            <span class="tag-pill">Favorit Lokal</span>
+            <button class="food-cta">Resep & Info <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+          </div>
+        </div>
+      </div>
+
+      <div class="food-card reveal delay-5" onclick="openFoodPopup('dabu')">
+        <div class="food-card-img">
+          <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=700&q=80" alt="Dabu-Dabu" loading="lazy"/>
+          <div class="food-card-img-overlay"></div>
+          <div class="food-heat"><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span></span></div>
+          <div class="food-info-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></div>
+        </div>
+        <div class="food-card-body">
+          <h4>Sambal Dabu-Dabu</h4>
+          <p>Sambal segar khas Manado dengan tomat, cabai, bawang merah, dan kemangi — pelengkap wajib setiap hidangan seafood.</p>
+          <div class="food-card-footer">
+            <span class="tag-pill coral">Pedas Segar</span>
+            <button class="food-cta">Resep & Info <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+          </div>
+        </div>
+      </div>
+
+      <div class="food-card reveal delay-6" onclick="openFoodPopup('woku')">
+        <div class="food-card-img">
+          <img src="https://images.unsplash.com/photo-1551218808-94e220e084d2?w=700&q=80" alt="Woku" loading="lazy"/>
+          <div class="food-card-img-overlay"></div>
+          <div class="food-heat"><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span></span></div>
+          <div class="food-info-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></div>
+        </div>
+        <div class="food-card-body">
+          <h4>Ikan Woku</h4>
+          <p>Ikan dimasak dengan bumbu woku — perpaduan daun pandan, sereh, kemangi, dan rempah Minahasa yang menghasilkan aroma menggugah selera.</p>
+          <div class="food-card-footer">
+            <span class="tag-pill gold">Rempah Kaya</span>
+            <button class="food-cta">Resep & Info <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
 
-<!-- INFO & MAP -->
+<!-- ============================================================
+     INFO & MAP
+     ============================================================ -->
 <section id="info">
-  <div class="info-inner">
-    <div class="info-left reveal">
-      <div class="section-tag" style="color:var(--aqua)">Informasi Kota</div>
-      <h2 class="section-title" style="color:var(--white)">Data & <em style="color:var(--aqua);font-style:italic">Fakta</em> Bitung</h2>
-
-      <div class="info-cards">
-        <div class="info-card reveal reveal-delay-1">
-          <div class="info-icon">🌏</div>
-          <h4>Lokasi</h4>
-          <p>1°28' LU, 125°12' BT — Ujung Timur Sulawesi Utara</p>
+  <div class="info-wrap">
+    <div class="info-grid">
+      <div>
+        <div class="reveal">
+          <div class="sec-label">Data Kota</div>
+          <h2 class="sec-title">Fakta & <em>Informasi</em><br>Kota Bitung</h2>
         </div>
-        <div class="info-card reveal reveal-delay-2">
-          <div class="info-icon">🌡️</div>
-          <h4>Iklim</h4>
-          <p>Tropis lembab, suhu 24–31°C sepanjang tahun</p>
-        </div>
-        <div class="info-card reveal reveal-delay-3">
-          <div class="info-icon">✈️</div>
-          <h4>Akses</h4>
-          <p>2 jam dari Bandara Sam Ratulangi, Manado</p>
-        </div>
-        <div class="info-card reveal reveal-delay-4">
-          <div class="info-icon">🐟</div>
-          <h4>Komoditas</h4>
-          <p>Ikan Cakalang, Tuna, dan hasil laut segar lainnya</p>
-        </div>
-        <div class="info-card reveal reveal-delay-1">
-          <div class="info-icon">🏭</div>
-          <h4>Industri</h4>
-          <p>KEK Bitung — Kawasan Ekonomi Khusus nasional</p>
-        </div>
-        <div class="info-card reveal reveal-delay-2">
-          <div class="info-icon">🤿</div>
-          <h4>Diving</h4>
-          <p>Selat Lembeh: #1 muck diving site di dunia</p>
+        <div class="info-cards-grid">
+          <div class="info-card reveal delay-1">
+            <div class="info-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--aqua)" stroke-width="1.8"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg></div>
+            <h4>Lokasi Geografis</h4>
+            <p>1°28' LU, 125°12' BT — Ujung timur Sulawesi Utara, berbatasan dengan Laut Maluku dan Selat Lembeh</p>
+          </div>
+          <div class="info-card reveal delay-2">
+            <div class="info-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--aqua)" stroke-width="1.8"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg></div>
+            <h4>Iklim Tropis</h4>
+            <p>Suhu rata-rata 24–31°C sepanjang tahun. Musim hujan Nov–Apr, musim kemarau Mei–Okt</p>
+          </div>
+          <div class="info-card reveal delay-3">
+            <div class="info-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--aqua)" stroke-width="1.8"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg></div>
+            <h4>Akses Transportasi</h4>
+            <p>2 jam dari Bandara Sam Ratulangi Manado via jalan darat. Bus reguler dan taksi tersedia 24 jam</p>
+          </div>
+          <div class="info-card reveal delay-4">
+            <div class="info-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--aqua)" stroke-width="1.8"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+            <h4>Komoditas Ekspor</h4>
+            <p>Ikan Cakalang, Tuna, Cengkeh, Kelapa Sawit — pengolahan ikan terbesar di Sulawesi</p>
+          </div>
+          <div class="info-card reveal delay-5">
+            <div class="info-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--aqua)" stroke-width="1.8"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
+            <h4>KEK Bitung</h4>
+            <p>534 hektare kawasan industri khusus, mendorong investasi logistik, manufaktur, dan pengolahan hasil laut</p>
+          </div>
+          <div class="info-card reveal delay-6">
+            <div class="info-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--aqua)" stroke-width="1.8"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg></div>
+            <h4>Selat Lembeh</h4>
+            <p>Diakui sebagai #1 muck diving destination dunia — 800+ spesies biota laut langka dalam satu perairan</p>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="map-container reveal reveal-delay-2">
-      <iframe
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d127547.63553836478!2d125.11538!3d1.4310!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x32875e5c44c1e7b7%3A0x505ba6bb1f5c5a25!2sBitung%2C%20North%20Sulawesi!5e0!3m2!1sen!2sid!4v1700000000000"
-        allowfullscreen="" loading="lazy">
-      </iframe>
-      <div class="map-overlay">
-        <strong>📍 Bitung, Sulawesi Utara</strong>
-        <span>Kota Pelabuhan · Indonesia</span>
+      <div class="reveal delay-3">
+        <div class="map-wrap">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d127547.63553836478!2d125.11538!3d1.4310!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x32875e5c44c1e7b7%3A0x505ba6bb1f5c5a25!2sBitung%2C%20North%20Sulawesi!5e0!3m2!1sen!2sid!4v1700000000000" allowfullscreen="" loading="lazy"></iframe>
+          <div class="map-badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="var(--aqua)" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+            <div class="map-badge-text"><strong>Kota Bitung</strong><span>Sulawesi Utara, Indonesia</span></div>
+          </div>
+        </div>
+        <div class="map-actions">
+          <a href="https://maps.google.com/?q=Bitung+North+Sulawesi" target="_blank" class="btn btn-ghost">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:13px;height:13px"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>
+            Buka di Google Maps
+          </a>
+          <a href="https://maps.google.com/?q=Selat+Lembeh+Bitung" target="_blank" class="btn btn-ghost">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:13px;height:13px"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/></svg>
+            Selat Lembeh
+          </a>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- FOOTER -->
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
 <footer>
-  <div class="footer-inner">
-    <div class="footer-top">
+  <div class="footer-wrap">
+    <div class="footer-grid">
       <div class="footer-brand">
-        <a class="nav-logo" href="#">BI<span>T</span>UNG</a>
-        <p>Kota pelabuhan penuh pesona di ujung timur Sulawesi Utara. Pintu gerbang menuju keajaiban alam Indonesia Timur.</p>
+        <a class="nav-logo footer-brand" href="#" style="text-decoration:none;font-family:'Bebas Neue',cursive;font-size:30px;letter-spacing:5px;color:var(--aqua);display:block;margin-bottom:18px;">BI<span style="color:var(--gold)">·</span>TUNG</a>
+        <p>Kota pelabuhan bersejarah di ujung timur Sulawesi Utara — pintu gerbang menuju keajaiban alam Indonesia Timur yang tiada duanya.</p>
+        <div class="footer-social">
+          <a class="fs-btn" href="#" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
+          <a class="fs-btn" href="#" aria-label="Instagram"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+          <a class="fs-btn" href="#" aria-label="YouTube"><svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 00-1.95 1.96A29 29 0 001 12a29 29 0 00.46 5.58A2.78 2.78 0 003.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.4a2.78 2.78 0 001.95-1.95A29 29 0 0023 12a29 29 0 00-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg></a>
+          <a class="fs-btn" href="#" aria-label="Twitter"><svg viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/></svg></a>
+        </div>
       </div>
       <div class="footer-col">
         <h5>Jelajahi</h5>
         <ul>
           <li><a href="#tentang">Tentang Kota</a></li>
+          <li><a href="#sejarah">Sejarah</a></li>
           <li><a href="#galeri">Galeri Foto</a></li>
-          <li><a href="#destinasi">Wisata</a></li>
-          <li><a href="#kuliner">Kuliner</a></li>
+          <li><a href="#destinasi">Destinasi Wisata</a></li>
+          <li><a href="#kuliner">Kuliner Khas</a></li>
+          <li><a href="#info">Info & Peta</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <h5>Destinasi</h5>
         <ul>
-          <li><a href="#">Selat Lembeh</a></li>
-          <li><a href="#">Gunung Klabat</a></li>
-          <li><a href="#">Taman Nasional</a></li>
-          <li><a href="#">KEK Bitung</a></li>
+          <li><button onclick="openDestPopup('lembeh')">Selat Lembeh</button></li>
+          <li><button onclick="openDestPopup('bogani')">TN Bogani Nani</button></li>
+          <li><button onclick="openDestPopup('klabat')">Gunung Klabat</button></li>
+          <li><button onclick="openDestPopup('makawidey')">Pantai Makawidey</button></li>
+          <li><button onclick="openDestPopup('kek')">KEK Bitung</button></li>
+          <li><button onclick="openDestPopup('laut')">Pulau Lembeh</button></li>
         </ul>
       </div>
       <div class="footer-col">
-        <h5>Kontak</h5>
+        <h5>Kuliner</h5>
         <ul>
-          <li><a href="#">Pemerintah Kota</a></li>
-          <li><a href="#">Dinas Pariwisata</a></li>
-          <li><a href="#">Tourism Office</a></li>
-          <li><a href="#">Hubungi Kami</a></li>
+          <li><button onclick="openFoodPopup('cakalang')">Cakalang Fufu</button></li>
+          <li><button onclick="openFoodPopup('tinutuan')">Tinutuan</button></li>
+          <li><button onclick="openFoodPopup('rica')">Ikan Rica-Rica</button></li>
+          <li><button onclick="openFoodPopup('bakar')">Ikan Bakar</button></li>
+          <li><button onclick="openFoodPopup('dabu')">Sambal Dabu-Dabu</button></li>
+          <li><button onclick="openFoodPopup('woku')">Ikan Woku</button></li>
         </ul>
       </div>
     </div>
     <div class="footer-bottom">
-      <p>© 2025 <span>Kota Bitung</span> — Sulawesi Utara, Indonesia</p>
-      <p>Dibuat dengan <span>♥</span> untuk Bitung</p>
+      <p>© 2025 <span>Kota Bitung</span> — Sulawesi Utara, Indonesia. Semua hak dilindungi.</p>
+      <div class="footer-badge">
+        <svg viewBox="0 0 24 24" width="13" height="13"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        Dibuat dengan penuh cinta untuk Bitung
+      </div>
+      <p>Sulawesi Utara <span>·</span> Indonesia</p>
     </div>
   </div>
 </footer>
 
-<!-- LIGHTBOX -->
+<!-- ============================================================
+     LIGHTBOX
+     ============================================================ -->
 <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
-  <button class="lb-close" onclick="closeLightbox()">✕</button>
-  <img id="lbImg" src="" alt=""/>
-  <div class="lb-caption">
-    <strong id="lbTitle"></strong>
-    <span id="lbDesc"></span>
+  <button class="lb-close-btn" onclick="closeLightbox()"><svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+  <div class="lb-img-wrap"><img id="lbImg" src="" alt=""/></div>
+  <div class="lb-caption"><strong id="lbTitle"></strong><span id="lbDesc"></span></div>
+</div>
+
+<!-- ============================================================
+     DESTINASI POPUP
+     ============================================================ -->
+<div class="popup-overlay" id="destPopup" onclick="closePopupOutside('destPopup',event)">
+  <div class="popup-box">
+    <button class="popup-close" onclick="closePopup('destPopup')"><svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+    <img class="popup-hero-img" id="dp-img" src="" alt=""/>
+    <div class="popup-body">
+      <div class="popup-eyebrow" id="dp-eyebrow"></div>
+      <h2 class="popup-title" id="dp-title"></h2>
+      <p class="popup-lead" id="dp-lead"></p>
+      <div class="popup-facts" id="dp-facts"></div>
+      <div class="popup-chips" id="dp-chips"></div>
+      <div class="popup-divider"></div>
+      <div class="popup-section-title"><svg viewBox="0 0 24 24"><path d="M12 2a7 7 0 017 7c0 3.5-2.5 6.5-6 7.32V18h-2v-1.68C7.5 15.5 5 12.5 5 9a7 7 0 017-7zm0 18v2"/></svg>Tips Berkunjung</div>
+      <div class="popup-tip"><p id="dp-tips"></p></div>
+      <div class="popup-rating"><span class="pr-stars" id="dp-stars"></span><span class="pr-score" id="dp-score"></span><span class="pr-label">Rating Pengunjung</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     FOOD POPUP
+     ============================================================ -->
+<div class="popup-overlay" id="foodPopup" onclick="closePopupOutside('foodPopup',event)">
+  <div class="popup-box">
+    <button class="popup-close" onclick="closePopup('foodPopup')"><svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+    <img class="popup-hero-img" id="fp-img" src="" alt=""/>
+    <div class="popup-body">
+      <div class="popup-eyebrow" id="fp-eyebrow"></div>
+      <h2 class="popup-title" id="fp-title"></h2>
+      <p class="popup-lead" id="fp-lead"></p>
+      <div class="popup-facts" id="fp-facts"></div>
+      <div class="popup-divider"></div>
+      <div class="popup-section-title"><svg viewBox="0 0 24 24"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 002-2V2M7 2v20"/></svg>Bahan-Bahan</div>
+      <div class="ingredient-grid" id="fp-ingredients"></div>
+      <div class="popup-section-title" style="margin-top:18px"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>Cara Memasak</div>
+      <div class="recipe-list" id="fp-steps"></div>
+      <div class="popup-divider"></div>
+      <div class="popup-section-title"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>Tips Menikmati</div>
+      <div class="popup-tip"><p id="fp-tips"></p></div>
+    </div>
   </div>
 </div>
 
 <script>
-  // CURSOR
-  const cursor = document.getElementById('cursor');
-  const ring = document.getElementById('cursorRing');
-  let mx = 0, my = 0, rx = 0, ry = 0;
+/* ============================================================
+   CURSOR
+   ============================================================ */
+const cur = document.getElementById('cursor');
+const curR = document.getElementById('cursorRing');
+let mx=0, my=0, rx=0, ry=0;
 
-  document.addEventListener('mousemove', e => {
-    mx = e.clientX; my = e.clientY;
-    cursor.style.left = mx + 'px';
-    cursor.style.top = my + 'px';
-  });
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  cur.style.left = mx+'px'; cur.style.top = my+'px';
+});
+(function animCursor() {
+  rx += (mx-rx)*0.13; ry += (my-ry)*0.13;
+  curR.style.left = rx+'px'; curR.style.top = ry+'px';
+  requestAnimationFrame(animCursor);
+})();
 
-  function animRing() {
-    rx += (mx - rx) * 0.15;
-    ry += (my - ry) * 0.15;
-    ring.style.left = rx + 'px';
-    ring.style.top = ry + 'px';
-    requestAnimationFrame(animRing);
+const hoverEls = 'a, button, .dest-card, .food-card, .gm-item, .ahl-card, .info-card, .tl-content';
+document.addEventListener('mouseover', e => {
+  if(e.target.closest(hoverEls)) {
+    cur.classList.add('hovering'); curR.classList.add('hovering');
   }
-  animRing();
-
-  document.querySelectorAll('a, button, .g-item, .dest-card, .food-card').forEach(el => {
-    el.addEventListener('mouseenter', () => {
-      cursor.style.width = '20px';
-      cursor.style.height = '20px';
-      cursor.style.background = 'var(--gold)';
-    });
-    el.addEventListener('mouseleave', () => {
-      cursor.style.width = '12px';
-      cursor.style.height = '12px';
-      cursor.style.background = 'var(--aqua)';
-    });
-  });
-
-  // NAV SCROLL
-  window.addEventListener('scroll', () => {
-    const nav = document.getElementById('navbar');
-    nav.classList.toggle('scrolled', window.scrollY > 50);
-  });
-
-  // HAMBURGER
-  function toggleMenu() {
-    const hb = document.getElementById('hamburger');
-    const mm = document.getElementById('mobileMenu');
-    hb.classList.toggle('open');
-    mm.classList.toggle('open');
-    mm.style.display = mm.classList.contains('open') ? 'flex' : 'none';
+});
+document.addEventListener('mouseout', e => {
+  if(e.target.closest(hoverEls)) {
+    cur.classList.remove('hovering'); curR.classList.remove('hovering');
   }
-  function closeMobileMenu() {
-    document.getElementById('hamburger').classList.remove('open');
-    const mm = document.getElementById('mobileMenu');
-    mm.classList.remove('open');
-    setTimeout(() => mm.style.display = 'none', 300);
-  }
+});
 
-  // GALLERY FILTER
-  function filterGallery(cat, btn) {
-    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-    btn.classList.add('active');
-    document.querySelectorAll('.g-item').forEach(item => {
-      if (cat === 'all' || item.dataset.cat === cat) {
-        item.style.opacity = '1';
-        item.style.transform = 'scale(1)';
-        item.style.pointerEvents = 'all';
-      } else {
-        item.style.opacity = '0.2';
-        item.style.transform = 'scale(0.97)';
-        item.style.pointerEvents = 'none';
-      }
-    });
-  }
+/* ============================================================
+   SCROLL PROGRESS
+   ============================================================ */
+const scrollBar = document.getElementById('scrollProgress');
+window.addEventListener('scroll', () => {
+  const scrolled = window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100;
+  scrollBar.style.width = scrolled + '%';
+}, {passive: true});
 
-  // LIGHTBOX
-  function openLightbox(el) {
-    const lb = document.getElementById('lightbox');
-    const img = el.querySelector('img');
-    document.getElementById('lbImg').src = img.src;
-    document.getElementById('lbTitle').textContent = el.dataset.title || '';
-    document.getElementById('lbDesc').textContent = el.dataset.desc || '';
-    lb.classList.add('open');
-    document.body.style.overflow = 'hidden';
-  }
-  function closeLightbox(e) {
-    if (!e || e.target !== document.getElementById('lbImg')) {
-      document.getElementById('lightbox').classList.remove('open');
-      document.body.style.overflow = '';
+/* ============================================================
+   NAVBAR
+   ============================================================ */
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 60);
+}, {passive: true});
+
+// Active nav link on scroll
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-center a');
+const sectionObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting) {
+      navLinks.forEach(a => {
+        a.classList.toggle('active', a.getAttribute('href') === '#'+entry.target.id);
+      });
     }
-  }
-  document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') closeLightbox();
   });
+}, { threshold: 0.4 });
+sections.forEach(s => sectionObserver.observe(s));
 
-  // SCROLL REVEAL
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-      }
-    });
-  }, { threshold: 0.1 });
+/* ============================================================
+   MOBILE MENU
+   ============================================================ */
+function toggleMenu() {
+  const h = document.getElementById('hamburger');
+  const m = document.getElementById('mobileMenu');
+  h.classList.toggle('open');
+  m.classList.toggle('show');
+  m.style.display = m.classList.contains('show') ? 'flex' : 'none';
+  document.body.style.overflow = m.classList.contains('show') ? 'hidden' : '';
+}
+function closeMobileMenu() {
+  const h = document.getElementById('hamburger');
+  const m = document.getElementById('mobileMenu');
+  h.classList.remove('open');
+  m.classList.remove('show');
+  setTimeout(() => m.style.display = 'none', 350);
+  document.body.style.overflow = '';
+}
 
-  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+/* ============================================================
+   SCROLL REVEAL (IntersectionObserver)
+   ============================================================ */
+const revealObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(e.isIntersecting) { e.target.classList.add('in'); }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
-  // COUNTER ANIMATION
-  function animateCounter(el, target, suffix = '') {
-    let start = 0;
-    const duration = 2000;
-    const step = (timestamp) => {
-      if (!start) start = timestamp;
-      const progress = Math.min((timestamp - start) / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      el.textContent = Math.round(eased * target) + suffix;
-      if (progress < 1) requestAnimationFrame(step);
-    };
-    requestAnimationFrame(step);
+document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale')
+  .forEach(el => revealObs.observe(el));
+
+/* ============================================================
+   COUNTER ANIMATION
+   ============================================================ */
+function easeOutCubic(t) { return 1 - Math.pow(1 - t, 3); }
+function animateCount(el, target, decimals, suffix, duration) {
+  let start = null;
+  function step(ts) {
+    if(!start) start = ts;
+    const progress = Math.min((ts - start) / duration, 1);
+    const eased = easeOutCubic(progress);
+    const val = (eased * target).toFixed(decimals);
+    el.textContent = val + suffix;
+    if(progress < 1) requestAnimationFrame(step);
   }
+  requestAnimationFrame(step);
+}
 
-  const statsObserver = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const nums = entry.target.querySelectorAll('.stat-num');
-        nums.forEach(n => {
-          const text = n.textContent;
-          if (text.includes('313')) animateCounter(n, 313, 'km²');
-          else if (text.includes('219')) animateCounter(n, 219, 'rb');
-          else if (text.includes('8')) animateCounter(n, 8, '');
-          else if (text.includes('1#')) { n.textContent = '1#'; }
-        });
-        statsObserver.unobserve(entry.target);
-      }
+const counterObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(e.isIntersecting) {
+      animateCount(document.getElementById('cnt1'), 313, 0, '', 2000);
+      animateCount(document.getElementById('cnt2'), 219, 0, '', 2200);
+      animateCount(document.getElementById('cnt3'), 1990, 0, '', 2400);
+      counterObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.5 });
+
+const heroStats = document.querySelector('.hero-stats');
+if(heroStats) counterObs.observe(heroStats);
+
+/* ============================================================
+   GALLERY FILTER
+   ============================================================ */
+function filterGal(cat, btn) {
+  document.querySelectorAll('.gf-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.gm-item').forEach(item => {
+    const show = cat === 'all' || item.dataset.cat === cat;
+    item.style.opacity = show ? '1' : '0.12';
+    item.style.transform = show ? 'scale(1)' : 'scale(0.96)';
+    item.style.pointerEvents = show ? 'all' : 'none';
+    item.style.transition = 'opacity .4s, transform .4s';
+  });
+}
+
+/* ============================================================
+   LIGHTBOX
+   ============================================================ */
+function openLightbox(el) {
+  document.getElementById('lbImg').src = el.querySelector('img').src;
+  document.getElementById('lbTitle').textContent = el.dataset.t || '';
+  document.getElementById('lbDesc').textContent = el.dataset.d || '';
+  const lb = document.getElementById('lightbox');
+  lb.classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox(e) {
+  if(!e || e.target !== document.getElementById('lbImg')) {
+    document.getElementById('lightbox').classList.remove('show');
+    document.body.style.overflow = '';
+  }
+}
+
+/* ============================================================
+   POPUP SYSTEM
+   ============================================================ */
+function openPop(id) {
+  document.getElementById(id).classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+function closePopup(id) {
+  document.getElementById(id).classList.remove('show');
+  document.body.style.overflow = '';
+}
+function closePopupOutside(id, e) {
+  if(e.target === document.getElementById(id)) closePopup(id);
+}
+document.addEventListener('keydown', e => {
+  if(e.key === 'Escape') {
+    ['destPopup','foodPopup','lightbox'].forEach(id => {
+      document.getElementById(id).classList.remove('show');
     });
-  }, { threshold: 0.5 });
+    document.body.style.overflow = '';
+  }
+});
 
-  const stats = document.querySelector('.hero-stats');
-  if (stats) statsObserver.observe(stats);
+/* ============================================================
+   SVG ICON LIBRARY
+   ============================================================ */
+const I = {
+  pin:   `<svg viewBox="0 0 24 24" fill="none" stroke="var(--aqua)" stroke-width="1.8"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/></svg>`,
+  clock: `<svg viewBox="0 0 24 24" fill="none" stroke="var(--aqua)" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>`,
+  tag:   `<svg viewBox="0 0 24 24" fill="none" stroke="var(--aqua)" stroke-width="1.8"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>`,
+  star:  `<svg viewBox="0 0 24 24" fill="none" stroke="var(--aqua)" stroke-width="1.8"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`,
+  fish:  `<svg viewBox="0 0 24 24" fill="none" stroke="var(--aqua)" stroke-width="1.8"><path d="M21 12c0 1.66-4 6-9 6s-9-4.34-9-6 4-6 9-6 9 4.34 9 6z"/></svg>`,
+  heat:  `<svg viewBox="0 0 24 24" fill="none" stroke="var(--aqua)" stroke-width="1.8"><path d="M12 2c-2 3-2 6 0 9s2 6 0 9M7 5c-1.5 2-1.5 5 0 7s1.5 5 0 7M17 5c1.5 2 1.5 5 0 7s-1.5 5 0 7"/></svg>`,
+  fork:  `<svg viewBox="0 0 24 24" fill="none" stroke="var(--aqua)" stroke-width="1.8"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 002-2V2M7 2v20M21 15V2a5 5 0 00-5 5v6c0 1.1.9 2 2 2h1v5"/></svg>`,
+  leaf:  `<svg viewBox="0 0 24 24" fill="none" stroke="var(--aqua)" stroke-width="1.8"><path d="M17 8C8 10 5.9 16.17 3.82 19.25a2 2 0 001.7 3.06C8 22 12 20 15 17c2-2 3.25-5 2-8z"/></svg>`,
+  globe: `<svg viewBox="0 0 24 24" fill="none" stroke="var(--aqua)" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064"/></svg>`,
+  money: `<svg viewBox="0 0 24 24" fill="none" stroke="var(--aqua)" stroke-width="1.8"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>`,
+  eyes:  `<svg viewBox="0 0 24 24" fill="none" stroke="var(--aqua)" stroke-width="1.8"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>`,
+  mtn:   `<svg viewBox="0 0 24 24" fill="none" stroke="var(--aqua)" stroke-width="1.8"><path d="M3 17l5-9 4 7 3-4 6 6H3z"/></svg>`,
+};
+function pFact(ico, lbl, val) {
+  return `<div class="pf-item"><div class="pf-icon">${I[ico]||I.pin}</div><div class="pf-text"><strong>${lbl}</strong><span>${val}</span></div></div>`;
+}
+function pChip(t) { return `<span class="tag-pill">${t}</span>`; }
+function ingChip(t) { return `<span class="ing-chip">${t}</span>`; }
+function rStep(n, t) { return `<div class="recipe-step"><div class="rs-num">${n}</div><p>${t}</p></div>`; }
+
+/* ============================================================
+   DESTINASI DATA
+   ============================================================ */
+const DEST = {
+  lembeh: {
+    img: 'https://images.unsplash.com/photo-1583212292454-1fe6229603b7?w=900&q=80',
+    eyebrow: 'Selat Lembeh · Diving & Snorkeling',
+    title: 'Selat Lembeh',
+    lead: 'Selat Lembeh adalah perairan sempit sepanjang 16 km yang memisahkan daratan Bitung dari Pulau Lembeh. Diakui secara internasional sebagai <strong style="color:var(--aqua)">destinasi muck diving terbaik di dunia</strong> oleh berbagai majalah diving internasional, perairan ini menjadi rumah bagi lebih dari 800 spesies biota laut eksotis yang tidak ditemukan di tempat lain di bumi. Frogfish, mimic octopus, blue-ringed octopus, rhinopias, seahorse pygmy, ghost pipefish — semua ada di sini.',
+    facts: [
+      pFact('pin',   'Lokasi',             'Antara Daratan Bitung & Pulau Lembeh'),
+      pFact('eyes',  'Kedalaman Menyelam',  '5 – 25 meter, ideal untuk semua level'),
+      pFact('money', 'Biaya Menyelam',      'Rp 500.000 – 1.500.000 per dive'),
+      pFact('star',  'Spesies Tercatat',    '800+ spesies langka & unik'),
+      pFact('clock', 'Waktu Terbaik',       'April – Oktober (laut paling tenang)'),
+      pFact('globe', 'Pengakuan',           'Diakui #1 Muck Diving Site Dunia'),
+    ],
+    chips: ['Muck Diving','Snorkeling','Night Dive','Fotografi Bawah Laut','Biota Langka','Dive Resort'],
+    tips: 'Kunjungi antara April–Oktober untuk visibilitas terbaik (15–25 meter). Daftarkan ke salah satu dari 20+ dive resort lokal untuk mendapatkan pemandu berpengalaman. Selalu hormati biota laut — jangan menyentuh, memindahkan, atau memberi makan makhluk laut apapun. Bawa kamera underwater dengan macro lens untuk mengabadikan kehidupan laut kecil yang menakjubkan. Night dive di Lembeh adalah pengalaman yang benar-benar tidak terlupakan.',
+    stars: '★★★★★', score: '4.9'
+  },
+  bogani: {
+    img: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=900&q=80',
+    eyebrow: 'TN Bogani Nani Wartabone · Ekowisata',
+    title: 'Taman Nasional Bogani Nani Wartabone',
+    lead: 'Taman Nasional Bogani Nani Wartabone adalah kawasan konservasi hutan tropis yang membentang di Sulawesi Utara dan Gorontalo, dengan luas total <strong style="color:var(--aqua)">287.115 hektare</strong>. Kawasan ini merupakan salah satu benteng terakhir keanekaragaman hayati endemik Sulawesi di dunia. Di sini hidup anoa (kerbau kerdil Sulawesi yang terancam punah), babirusa (babi bersurai yang unik), burung maleo (burung bertelur di sumber panas bumi), dan rangkong Sulawesi yang megah.',
+    facts: [
+      pFact('pin',   'Luas Kawasan',   '287.115 Hektare'),
+      pFact('clock', 'Jam Operasional','07.00 – 17.00 WITA'),
+      pFact('money', 'Tiket Masuk',    'Rp 20.000 – 50.000 per orang'),
+      pFact('leaf',  'Satwa Endemik',  'Anoa, Babirusa, Maleo, Rangkong'),
+      pFact('mtn',   'Vegetasi',       'Hutan Dataran Rendah & Pegunungan'),
+      pFact('star',  'Status',         'Taman Nasional sejak 1991'),
+    ],
+    chips: ['Ekowisata','Bird Watching','Trekking','Wildlife Photography','Konservasi','Penelitian'],
+    tips: 'Wajib menggunakan pemandu lokal bersertifikat — selain untuk keselamatan, mereka sangat membantu mengidentifikasi satwa liar. Mulai trekking sangat pagi (06.00–09.00) karena satwa lebih aktif di pagi hari. Bawa repellent nyamuk, air minum minimal 2 liter, dan pakaian warna gelap. Jaga ketenangan dan volume suara rendah agar satwa tidak kabur.',
+    stars: '★★★★★', score: '4.8'
+  },
+  klabat: {
+    img: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=900&q=80',
+    eyebrow: 'Gunung Klabat · Pendakian & Alam',
+    title: 'Gunung Klabat — 1.995 mdpl',
+    lead: 'Gunung Klabat adalah <strong style="color:var(--aqua)">puncak tertinggi di Sulawesi Utara</strong> dengan ketinggian 1.995 meter di atas permukaan laut. Terletak di Kabupaten Minahasa Utara, dapat dicapai dari Bitung dalam waktu sekitar 1,5 jam. Dari puncaknya pada saat cuaca cerah, Anda bisa melihat panorama 360° yang menakjubkan: hamparan Kota Bitung dan Manado, Pulau Lembeh, Kepulauan Sangihe dan Talaud, dan bahkan siluet Kepulauan Davao di Filipina.',
+    facts: [
+      pFact('mtn',   'Ketinggian',       '1.995 mdpl — Tertinggi di Sulut'),
+      pFact('clock', 'Durasi Pendakian', '6 – 8 jam pulang pergi'),
+      pFact('money', 'Biaya',            'Rp 20.000 (tiket) + Rp 150.000 (pemandu)'),
+      pFact('pin',   'Titik Awal',       'Desa Klabat, Minahasa Utara'),
+      pFact('star',  'View Terbaik',     'Bitung, Manado, Sangihe, Filipina'),
+      pFact('heat',  'Suhu Puncak',      '10 – 15°C, sangat dingin di malam hari'),
+    ],
+    chips: ['Pendakian','Camping','Sunrise Hunter','Fotografi Lanskap','Petualangan','Trekking'],
+    tips: 'Mulai pendakian dini hari antara pukul 01.00–02.00 agar tiba di puncak tepat saat matahari terbit sekitar pukul 05.30 — pemandangan ini adalah yang paling spektakuler. Wajib menggunakan pemandu lokal karena jalur bercabang dan sering berkabut. Bawa jaket tebal berlapis, sleeping bag jika bermalam, senter kepala, dan minuman panas dalam termos. Cuaca bisa berubah sangat cepat.',
+    stars: '★★★★☆', score: '4.6'
+  },
+  makawidey: {
+    img: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=900&q=80',
+    eyebrow: 'Pantai Makawidey · Wisata Bahari',
+    title: 'Pantai Makawidey',
+    lead: 'Pantai Makawidey adalah salah satu pantai paling populer di Kota Bitung, terletak di Kelurahan Makawidey, Kecamatan Bitung Selatan. Pantai ini menghadap langsung ke <strong style="color:var(--aqua)">Selat Lembeh</strong>, menawarkan pemandangan unik kapal-kapal nelayan tradisional dan siluet Pulau Lembeh di kejauhan. Air lautnya jernih berwarna biru kehijauan dengan pasir putih yang lembut. Senja di Pantai Makawidey terkenal sebagai salah satu yang terindah di Sulawesi Utara.',
+    facts: [
+      pFact('pin',   'Lokasi',         'Kelurahan Makawidey, Bitung Selatan'),
+      pFact('clock', 'Waktu Terbaik',  '16.00 – 18.30 WITA untuk sunset'),
+      pFact('money', 'Biaya Masuk',    'Gratis — Parkir Rp 5.000'),
+      pFact('star',  'Fasilitas',      'Warung makan, toilet, parkir luas'),
+      pFact('eyes',  'Aktivitas',      'Berenang, snorkeling, piknik, foto'),
+      pFact('fish',  'Kuliner Lokal',  'Seafood segar di warung tepi pantai'),
+    ],
+    chips: ['Sunset','Berenang','Snorkeling','Piknik Keluarga','Fotografi','Kuliner Seafood'],
+    tips: 'Datang sekitar pukul 16.00 untuk menikmati suasana sore dan mendapatkan spot terbaik sebelum sunset. Bawa perlengkapan snorkeling sendiri karena tidak selalu tersedia sewaan di sini. Hindari kunjungan saat musim hujan November–Januari ketika ombak bisa cukup besar. Warung-warung seafood di pinggir pantai menyajikan ikan bakar segar yang sangat lezat dengan harga terjangkau.',
+    stars: '★★★★☆', score: '4.5'
+  },
+  kek: {
+    img: 'https://images.unsplash.com/photo-1486325212027-8081e485255e?w=900&q=80',
+    eyebrow: 'KEK Bitung · Kawasan Ekonomi Khusus',
+    title: 'Kawasan Ekonomi Khusus Bitung',
+    lead: 'KEK Bitung ditetapkan berdasarkan Peraturan Pemerintah Nomor 32 Tahun 2014 sebagai salah satu <strong style="color:var(--aqua)">Kawasan Ekonomi Khusus nasional</strong> dengan luas 534 hektare. Kawasan ini dirancang untuk mendorong investasi di sektor industri pengolahan hasil perikanan, agro industri, logistik, dan manufaktur berbasis sumber daya lokal. KEK Bitung diharapkan menjadi motor pertumbuhan ekonomi kawasan timur Indonesia.',
+    facts: [
+      pFact('pin',   'Luas Kawasan',    '534 Hektare'),
+      pFact('clock', 'Ditetapkan',      'PP No. 32 Tahun 2014'),
+      pFact('money', 'Fokus Industri',  'Perikanan, Agro, Logistik, Manufaktur'),
+      pFact('globe', 'Status',          'KEK Nasional Resmi Pemerintah RI'),
+      pFact('star',  'Target',          'Hub ekspor kawasan Asia Pasifik'),
+      pFact('eyes',  'Lokasi Strategis','Pelabuhan Hub Indonesia Timur'),
+    ],
+    chips: ['Investasi','Industri Pengolahan','Logistik','Ekspor','Pelabuhan','Manufaktur'],
+    tips: 'Untuk keperluan kunjungan bisnis atau penelitian ke KEK Bitung, hubungi Badan Pengusahaan KEK Bitung terlebih dahulu untuk mendapatkan izin masuk dan pemandu resmi. Kawasan ini memiliki fasilitas pelabuhan, gudang, dan zona industri modern yang terus berkembang.',
+    stars: '★★★★☆', score: '4.4'
+  },
+  laut: {
+    img: 'https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=900&q=80',
+    eyebrow: 'Pulau Lembeh · Wisata Bahari',
+    title: 'Pulau Lembeh',
+    lead: 'Pulau Lembeh adalah pulau memanjang yang terletak tepat di depan Kota Bitung, membentuk Selat Lembeh yang terkenal itu. Pulau ini dapat dicapai dengan feri atau perahu motor dalam 15–30 menit dari Pelabuhan Bitung. Selain menjadi bagian dari ekosistem diving kelas dunia, Pulau Lembeh menawarkan <strong style="color:var(--aqua)">pantai-pantai tersembunyi yang masih alami</strong>, kehidupan nelayan yang autentik, dan pemandangan laut yang memukau dari berbagai sudut.',
+    facts: [
+      pFact('pin',   'Akses',           'Ferry/perahu motor 15–30 menit'),
+      pFact('clock', 'Waktu Kunjungan', 'Seharian penuh, 07.00–17.00 WITA'),
+      pFact('money', 'Biaya Ferry',     'Rp 15.000 – 25.000 per orang'),
+      pFact('fish',  'Aktivitas Utama', 'Snorkeling, pantai, wisata nelayan'),
+      pFact('eyes',  'Pemandangan',     'Panorama kota Bitung dari pulau'),
+      pFact('star',  'Keunikan',        'Pantai tersembunyi & kehidupan lokal'),
+    ],
+    chips: ['Island Hopping','Snorkeling','Pantai Tersembunyi','Kehidupan Nelayan','Sunset','Fotografi'],
+    tips: 'Sewa motor di Pulau Lembeh untuk menjelajahi pantai-pantai tersembunyi di sisi timur pulau yang jarang diketahui wisatawan. Bawa bekal makanan dan air minum sendiri karena warung terbatas di area terpencil. Kunjungi komunitas nelayan lokal untuk pengalaman budaya yang autentik dan mencicipi hasil laut paling segar.',
+    stars: '★★★★☆', score: '4.5'
+  }
+};
+
+function openDestPopup(key) {
+  const d = DEST[key]; if(!d) return;
+  document.getElementById('dp-img').src = d.img;
+  document.getElementById('dp-eyebrow').innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="var(--aqua)" stroke-width="2" width="13" height="13"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg> ${d.eyebrow}`;
+  document.getElementById('dp-title').textContent = d.title;
+  document.getElementById('dp-lead').innerHTML = d.lead;
+  document.getElementById('dp-facts').innerHTML = d.facts.join('');
+  document.getElementById('dp-chips').innerHTML = d.chips.map(pChip).join('');
+  document.getElementById('dp-tips').textContent = d.tips;
+  document.getElementById('dp-stars').textContent = d.stars;
+  document.getElementById('dp-score').textContent = d.score;
+  openPop('destPopup');
+}
+
+/* ============================================================
+   FOOD DATA
+   ============================================================ */
+const FOOD = {
+  cakalang: {
+    img: 'https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=900&q=80',
+    eyebrow: 'Kuliner Tradisional · Ikon Bitung',
+    title: 'Cakalang Fufu',
+    lead: 'Cakalang Fufu adalah <strong style="color:var(--aqua)">ikan cakalang asap khas Minahasa</strong> yang telah menjadi simbol kuliner Kota Bitung selama bergenerasi. "Fufu" dalam bahasa Manado berarti diasap. Proses pengasapan tradisional menggunakan kayu pilihan selama 3–4 jam menghasilkan daging ikan yang padat, berwarna coklat keemasan dengan aroma kayu asap yang khas dan nikmat. Cakalang Fufu dapat bertahan 3–5 hari tanpa lemari pendingin — menjadikannya oleh-oleh favorit wisatawan.',
+    facts: [
+      pFact('fish',  'Bahan Utama', 'Ikan Cakalang (Skipjack Tuna) segar'),
+      pFact('clock', 'Waktu Masak', '3 – 4 jam proses pengasapan'),
+      pFact('heat',  'Cita Rasa',   'Gurih, smoky, tidak pedas'),
+      pFact('fork',  'Cara Saji',   'Goreng ulang + sambal + nasi hangat'),
+      pFact('money', 'Harga',       'Rp 30.000 – 80.000 per ekor'),
+      pFact('pin',   'Beli Terbaik','Pasar Bitung Pagi, pukul 06.00–09.00'),
+    ],
+    ingredients: ['Ikan Cakalang segar 1–2 kg','Garam dapur kasar','Air bersih untuk mencuci','Kayu keras pilihan (kayu kelapa/mahoni)','Bambu tusukan panjang','Daun pisang (opsional, alas)'],
+    steps: [
+      rStep(1, 'Bersihkan ikan cakalang seluruhnya: buang sisik, insang, dan isi perut. Cuci bersih menggunakan air mengalir sampai bersih sempurna.'),
+      rStep(2, 'Buat beberapa irisan/goresan diagonal di bagian daging (kedua sisi). Lumuri seluruh permukaan ikan dengan garam kasar secara merata, termasuk bagian dalam perut. Diamkan selama 20–30 menit agar garam meresap.'),
+      rStep(3, 'Tusukkan bambu panjang melalui mulut ikan hingga ekor, sehingga ikan terkembang lebar. Ini memastikan asap dapat masuk ke seluruh bagian ikan secara merata.'),
+      rStep(4, 'Siapkan tungku pengasapan dengan kayu keras. Nyalakan api dan biarkan menghasilkan asap yang banyak dengan bara api yang stabil — bukan api menyala besar.'),
+      rStep(5, 'Asap ikan di atas tungku selama 3–4 jam. Putar posisi ikan setiap 30 menit agar semua sisi menerima panas dan asap yang merata. Ikan siap ketika berwarna coklat keemasan dan terasa kering.'),
+      rStep(6, 'Cakalang Fufu siap dinikmati! Sebelum disajikan, goreng sebentar dengan sedikit minyak hingga sedikit crispy. Sajikan dengan nasi putih hangat, sambal rica, dan irisan bawang merah segar.'),
+    ],
+    tips: 'Cakalang Fufu paling nikmat dimakan dengan nasi hangat, sambal dabu-dabu segar, dan irisan mentimun. Beli langsung di Pasar Bitung pagi hari untuk mendapatkan yang paling segar — biasanya pedagang mulai berjualan pukul 06.00. Bisa juga dijadikan bahan tumis rica-rica atau sup untuk variasi rasa yang berbeda.'
+  },
+  tinutuan: {
+    img: 'https://images.unsplash.com/photo-1547592166-23ac45744acd?w=900&q=80',
+    eyebrow: 'Hidangan Sehat · Sarapan Khas Minahasa',
+    title: 'Tinutuan (Bubur Manado)',
+    lead: 'Tinutuan adalah <strong style="color:var(--aqua)">bubur khas Minahasa</strong> yang terkenal dengan penampilannya yang berwarna-warni dan kandungan gizi yang sangat tinggi. Dimasak dari beras yang dikombinasikan dengan labu kuning, singkong, bayam, kangkung, daun kemangi, dan berbagai sayuran segar lainnya. Dijuluki "bubur sehat" karena kandungan serat, vitamin, dan mineral dari aneka sayuran lokal yang melimpah. Sangat cocok sebagai sarapan bergizi untuk memulai hari.',
+    facts: [
+      pFact('leaf',  'Bahan Utama',    'Beras + Labu Kuning + 6 Jenis Sayuran'),
+      pFact('clock', 'Waktu Masak',    '45 – 60 menit total'),
+      pFact('heat',  'Cita Rasa',      'Ringan, segar, bisa disesuaikan'),
+      pFact('fork',  'Waktu Saji',     'Sarapan pagi, untuk semua usia'),
+      pFact('money', 'Harga',          'Rp 10.000 – 25.000 per porsi'),
+      pFact('star',  'Kandungan',      'Tinggi serat, vitamin A, C, dan mineral'),
+    ],
+    ingredients: ['Beras 200 gram','Labu kuning 150 gram (potong dadu 2cm)','Bayam segar 1 ikat besar','Kangkung 1 ikat','Daun kemangi segar 1 genggam','Singkong rebus 100 gram (potong dadu)','Jagung manis 1 buah (serut)','Garam secukupnya','Penyedap rasa (opsional)','Ikan asin/teri goreng sebagai pelengkap','Sambal dabu-dabu segar pelengkap'],
+    steps: [
+      rStep(1, 'Masak beras dalam air yang cukup banyak (perbandingan beras:air = 1:8 atau 1:10) menggunakan api sedang. Aduk sesekali agar tidak lengket di dasar panci.'),
+      rStep(2, 'Ketika beras mulai membentuk bubur (±20 menit), masukkan labu kuning yang sudah dipotong dadu dan singkong rebus. Aduk rata dan masak hingga labu menjadi lunak (±15 menit).'),
+      rStep(3, 'Masukkan jagung manis serut ke dalam bubur. Aduk rata. Tambahkan garam secukupnya dan koreksi rasa. Biarkan mendidih sebentar agar semua bahan menyatu.'),
+      rStep(4, 'Masukkan bayam dan kangkung yang sudah dibersihkan dan dipotong kasar. Aduk perlahan. Masak hanya 2–3 menit saja agar sayuran tetap segar, hijau, dan tidak overcooked.'),
+      rStep(5, 'Matikan api, masukkan daun kemangi segar. Aduk sekali dan tutup panci selama 1 menit agar aroma kemangi keluar.'),
+      rStep(6, 'Sajikan Tinutuan panas dalam mangkuk, lengkapi dengan ikan asin goreng atau teri goreng, sambal dabu-dabu segar, dan perasan jeruk nipis. Nikmati segera selagi panas!'),
+    ],
+    tips: 'Kunci Tinutuan yang lezat adalah kesegaran sayurannya — beli sayuran di pagi hari dan jangan overcook. Sajikan bersama ikan asin goreng crispy dan sambal dabu-dabu yang pedas segar untuk perpaduan rasa yang sempurna. Tinutuan paling enak dimakan pagi hari ketika masih sangat panas dan segar.'
+  },
+  rica: {
+    img: 'https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=900&q=80',
+    eyebrow: 'Masakan Pedas · Khas Sulawesi Utara',
+    title: 'Ikan Rica-Rica',
+    lead: 'Ikan Rica-Rica adalah <strong style="color:var(--aqua)">hidangan ikan dengan bumbu rica pedas khas Minahasa</strong>. Kata "rica" dalam bahasa daerah Manado berarti cabai — dan nama ini benar-benar mencerminkan karakternya yang berani, pedas membakar, namun tetap penuh cita rasa kompleks. Ikan laut segar berkualitas tinggi dimasak dengan perpaduan aneka cabai, bawang merah, jahe, serai, dan rempah-rempah lokal Sulawesi, menghasilkan paduan rasa pedas, asam segar, dan gurih yang sangat khas.',
+    facts: [
+      pFact('fish',  'Jenis Ikan',    'Cakalang, Tuna, Kakap Merah, Tongkol'),
+      pFact('clock', 'Waktu Masak',   '30 – 45 menit total'),
+      pFact('heat',  'Tingkat Pedas', 'Sangat Pedas — Level 5/5 ★★★★★'),
+      pFact('fork',  'Cara Saji',     'Nasi putih hangat — WAJIB!'),
+      pFact('money', 'Harga',         'Rp 35.000 – 75.000 per porsi'),
+      pFact('star',  'Keunikan',      'Bumbu rica otentik Minahasa turun-temurun'),
+    ],
+    ingredients: ['Ikan cakalang/tuna segar 500 gram','Cabai merah besar 5 buah','Cabai rawit merah 12–18 buah (sesuai selera)','Bawang merah 8 siung','Bawang putih 5 siung','Jahe segar 3 cm (memarkan)','Lengkuas 2 cm (memarkan)','Serai 2 batang (memarkan)','Daun jeruk purut 5 lembar','Tomat merah 2 buah (potong kasar)','Minyak goreng','Garam, gula, jeruk nipis'],
+    steps: [
+      rStep(1, 'Bersihkan ikan, potong menjadi beberapa bagian. Lumuri dengan garam dan perasan jeruk nipis, diamkan 10 menit. Goreng dalam minyak panas hingga setengah matang dan berwarna kecoklatan. Angkat dan sisihkan.'),
+      rStep(2, 'Haluskan cabai merah besar, cabai rawit, bawang merah, dan bawang putih menggunakan ulekan atau blender kasar. Jangan terlalu halus — tekstur sedikit kasar menghasilkan bumbu yang lebih autentik.'),
+      rStep(3, 'Panaskan minyak goreng 3 sdm di wajan. Tumis bumbu rica halus dengan api sedang-kecil hingga benar-benar matang dan harum, sekitar 8–12 menit. Bumbu yang matang sempurna adalah kunci kelezatan.'),
+      rStep(4, 'Masukkan serai, daun jeruk, jahe, dan lengkuas yang sudah dimemarkan. Tumis bersama bumbu rica selama 2 menit. Masukkan tomat potong, aduk rata.'),
+      rStep(5, 'Tambahkan sedikit air (100 ml), garam secukupnya, dan sedikit gula untuk menyeimbangkan rasa pedas. Masak hingga saus sedikit mengental.'),
+      rStep(6, 'Masukkan ikan goreng ke dalam wajan. Aduk perlahan dan lipat-lipat hingga semua bagian ikan terbalut bumbu rica dengan merata. Masak 3–5 menit lagi. Koreksi rasa, angkat, dan sajikan panas dengan nasi.'),
+    ],
+    tips: 'Gunakan ikan cakalang yang benar-benar segar untuk hasil terbaik — ikan segar yang baru ditangkap nelayan Bitung akan jauh lebih lezat. Sesuaikan jumlah cabai rawit dengan toleransi pedas Anda. Sajikan dengan nasi putih hangat, lalapan mentimun dan tomat segar, serta es kelapa muda untuk menenangkan lidah yang terbakar!'
+  },
+  bakar: {
+    img: 'https://images.unsplash.com/photo-1528605248644-14dd04022da1?w=900&q=80',
+    eyebrow: 'Ikan Bakar Tradisional · Favorit Lokal',
+    title: 'Ikan Bakar Segar Bitung',
+    lead: 'Ikan Bakar Segar Bitung adalah sebuah ritual kuliner yang tak terlupakan — <strong style="color:var(--aqua)">ikan hasil tangkapan nelayan langsung dari laut pada pagi hari</strong>, dibersihkan siang hari, dan dibakar sempurna di atas bara arang kelapa pada sore dan malam harinya. Kesegaran ikan ditambah aroma asap kayu kelapa dan bumbu kecap membuat pengalaman makan ini jauh melebihi sekadar santapan biasa. Disajikan dengan sambal dabu-dabu segar, plecing kangkung, dan nasi hangat.',
+    facts: [
+      pFact('fish',  'Jenis Ikan Terbaik', 'Kakap Merah, Kerapu, Cakalang, Baronang'),
+      pFact('clock', 'Waktu Terbaik',      'Malam hari pukul 18.00 – 22.00 WITA'),
+      pFact('pin',   'Lokasi Terbaik',     'Jl. Yos Sudarso & Kawasan Pelabuhan Lama'),
+      pFact('fork',  'Pelengkap Wajib',    'Dabu-dabu segar, plecing kangkung'),
+      pFact('money', 'Harga',              'Rp 40.000 – 120.000 (tergantung jenis/ukuran ikan)'),
+      pFact('star',  'Tips',               'Minta ikan paling segar, tangkapan hari ini'),
+    ],
+    ingredients: ['Ikan kakap merah segar 1 ekor (600–800 gram)','Jeruk nipis 3 buah','Garam kasar secukupnya','Kecap manis 3 sendok makan','Minyak goreng 2 sendok makan','Bawang putih 4 siung (haluskan)','Daun pisang untuk alas (opsional)','Sambal dabu-dabu: tomat, cabai rawit, bawang merah, kemangi, jeruk nipis, garam','Plecing kangkung: kangkung rebus, sambal tomat'],
+    steps: [
+      rStep(1, 'Bersihkan ikan kakap dengan sempurna — sisik, insang, dan perut. Cuci bersih. Buat 3–4 goresan diagonal di kedua sisi daging ikan agar bumbu meresap dan matang merata. Lumuri garam dan perasan jeruk nipis, diamkan 15 menit.'),
+      rStep(2, 'Buat bumbu oles: campur bawang putih yang sudah dihaluskan, kecap manis, dan sedikit minyak goreng dalam mangkuk kecil. Aduk hingga rata. Ini adalah bumbu ajaib yang membuat ikan bakar Bitung begitu nikmat.'),
+      rStep(3, 'Siapkan bara arang kelapa — bukan kayu biasa. Arang kelapa menghasilkan panas yang lebih stabil dan memberi aroma khas yang tidak dimiliki arang lain. Biarkan membara merata tanpa api menyala besar.'),
+      rStep(4, 'Olesi permukaan panggangan dengan sedikit minyak agar ikan tidak lengket. Letakkan ikan di atas panggangan. Bakar dengan api sedang selama 8–10 menit, kemudian balik dengan hati-hati.'),
+      rStep(5, 'Oleskan bumbu kecap-bawang putih di setiap kali membalik. Balik total 3–4 kali selama proses pembakaran. Total waktu bakar 20–28 menit tergantung ukuran ikan.'),
+      rStep(6, 'Ikan siap ketika dagingnya mudah terlepas dari tulang, permukaan berwarna kecoklatan harum, dan aroma menggugah selera. Sajikan segera di atas daun pisang dengan sambal dabu-dabu segar, plecing kangkung, nasi putih, dan irisan jeruk nipis.'),
+    ],
+    tips: 'Pengalaman makan ikan bakar paling autentik adalah di warung-warung sederhana di tepi laut sekitar kawasan Pelabuhan Lama dan Jalan Yos Sudarso pada malam hari. Selalu tanya kepada penjual mana ikan yang paling segar ditangkap hari ini. Sambal dabu-dabu buatan segar adalah nyawa dari hidangan ini — jangan melewatkannya!'
+  },
+  dabu: {
+    img: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=900&q=80',
+    eyebrow: 'Sambal Segar · Pelengkap Wajib Minahasa',
+    title: 'Sambal Dabu-Dabu',
+    lead: 'Sambal Dabu-Dabu adalah <strong style="color:var(--aqua)">sambal segar khas Manado-Minahasa</strong> yang menjadi pelengkap wajib hampir setiap hidangan seafood di Bitung. Berbeda dengan sambal kebanyakan, dabu-dabu tidak diulek atau dimasak — semua bahan dipotong kasar dan dicampur mentah, sehingga menghasilkan tekstur yang renyah, segar, dan penuh aroma. Kombinasi tomat segar, cabai rawit, bawang merah, daun kemangi, dan perasan jeruk nipis menciptakan simfoni rasa yang sempurna.',
+    facts: [
+      pFact('leaf',  'Bahan Utama', 'Tomat + Cabai Rawit + Bawang Merah + Kemangi'),
+      pFact('clock', 'Waktu Buat',  '5 – 10 menit, sangat mudah'),
+      pFact('heat',  'Tingkat Pedas','Pedas Segar — Level 4/5'),
+      pFact('fork',  'Pasangan',    'Semua hidangan seafood & ikan bakar'),
+      pFact('star',  'Keunikan',    'Tidak diulek — semua dipotong kasar & mentah'),
+      pFact('eyes',  'Ketahanan',   'Sajikan segera — tidak tahan lama'),
+    ],
+    ingredients: ['Tomat merah segar 3 buah (potong dadu kecil)','Cabai rawit merah 8–12 buah (iris tipis, sesuai selera)','Bawang merah 5 siung (iris tipis)','Daun kemangi segar 1 genggam (petiki daunnya)','Jeruk nipis 2 buah (ambil airnya)','Garam secukupnya','Sedikit gula pasir (opsional, ±1/4 sdt)','Minyak kelapa/wijen (opsional, 1 sdt)'],
+    steps: [
+      rStep(1, 'Cuci bersih semua bahan segar. Potong tomat menjadi dadu kecil ukuran 1 cm. Letakkan dalam mangkuk.'),
+      rStep(2, 'Iris tipis bawang merah dan masukkan ke dalam mangkuk bersama tomat.'),
+      rStep(3, 'Iris tipis cabai rawit merah — semakin banyak, semakin pedas. Sesuaikan dengan selera. Masukkan ke dalam mangkuk.'),
+      rStep(4, 'Petiki daun kemangi segar, masukkan ke dalam mangkuk. Kemangi adalah bahan yang membuat dabu-dabu berbeda dari sambal lainnya.'),
+      rStep(5, 'Peras jeruk nipis di atas semua bahan. Tambahkan garam, sedikit gula jika suka. Aduk rata dengan sendok.'),
+      rStep(6, 'Sajikan segera! Dabu-dabu paling segar dan lezat ketika baru dibuat. Cocol dengan ikan bakar, ikan goreng, cakalang fufu, atau makanan laut apapun.'),
+    ],
+    tips: 'Rahasia dabu-dabu yang sempurna adalah kesegaran bahan-bahannya — gunakan tomat, kemangi, dan bawang merah yang segar dipetik hari itu. Jangan membuat terlalu banyak karena paling nikmat ketika masih segar, tekstur renyah, dan aroma kemangi masih wangi. Dabu-dabu juga sangat cocok sebagai saus untuk ikan goreng kering maupun seafood rebus.'
+  },
+  woku: {
+    img: 'https://images.unsplash.com/photo-1551218808-94e220e084d2?w=900&q=80',
+    eyebrow: 'Masakan Rempah · Warisan Kuliner Minahasa',
+    title: 'Ikan Woku',
+    lead: 'Ikan Woku adalah <strong style="color:var(--aqua)">masakan ikan berbumbu woku khas Minahasa</strong> yang menggunakan perpaduan rempah-rempah aromatik yang kaya dan kompleks. Kata "woku" mengacu pada teknik memasak dengan bumbu yang didominasi daun pandan wangi, batang serai, daun jeruk, kemangi, dan campuran rempah khas. Hasilnya adalah ikan dengan kuah yang harum semerbak, berwarna kuning keemasan dari kunyit, dan cita rasa yang kaya, gurih, dengan sedikit pedas yang seimbang.',
+    facts: [
+      pFact('fish',  'Jenis Ikan',   'Ikan Kakap, Kerapu, atau Ikan Mas'),
+      pFact('clock', 'Waktu Masak',  '35 – 50 menit total'),
+      pFact('heat',  'Tingkat Pedas','Sedang-Pedas — Level 3/5'),
+      pFact('leaf',  'Ciri Khas',    'Aroma daun pandan & kemangi yang kuat'),
+      pFact('fork',  'Cara Saji',    'Dalam panci dengan kuah, nasi hangat'),
+      pFact('star',  'Variasi',      'Woku blanga (panci) & woku daun (dibungkus)'),
+    ],
+    ingredients: ['Ikan kakap/kerapu 600 gram (potong atau utuh)','Jeruk nipis + garam untuk marinasi','Cabai merah 4 buah','Cabai rawit 6 buah','Bawang merah 6 siung','Bawang putih 4 siung','Kunyit segar 2 cm','Jahe 3 cm','Kemiri 3 butir (sangrai)','Serai 3 batang (memarkan)','Daun jeruk 6 lembar','Daun pandan 2 lembar','Daun kemangi 1 genggam besar','Daun bawang 2 batang','Garam, gula, kaldu','Air 200 ml','Minyak goreng'],
+    steps: [
+      rStep(1, 'Bersihkan ikan, lumuri garam dan jeruk nipis. Diamkan 15 menit. Goreng setengah matang, angkat.'),
+      rStep(2, 'Haluskan cabai merah, cabai rawit, bawang merah, bawang putih, kunyit, jahe, dan kemiri sangrai menggunakan ulekan.'),
+      rStep(3, 'Tumis bumbu halus dengan minyak goreng hingga benar-benar matang dan harum, sekitar 10–12 menit di api sedang.'),
+      rStep(4, 'Masukkan serai, daun jeruk, dan daun pandan. Tumis bersama bumbu 2 menit hingga aroma semakin keluar.'),
+      rStep(5, 'Tuang air, tambahkan garam dan sedikit gula. Masukkan ikan goreng, masak dengan api kecil selama 10–12 menit agar bumbu meresap sempurna.'),
+      rStep(6, 'Masukkan daun kemangi dan daun bawang. Aduk ringan, masak 1–2 menit, matikan api. Sajikan ikan woku panas dengan nasi putih, lengkap dengan kuah aromatiknya.'),
+    ],
+    tips: 'Woku terbaik adalah yang dimasak perlahan dengan api kecil agar semua rempah-rempah mengeluarkan aromanya secara maksimal. Daun pandan dan kemangi segar yang berlimpah adalah kunci aroma khas woku yang tak tertandingi. Coba juga variasi woku daun — ikan dan bumbu dibungkus dalam daun pisang lalu dibakar, menghasilkan cita rasa yang lebih smoky dan harum.'
+  }
+};
+
+function openFoodPopup(key) {
+  const d = FOOD[key]; if(!d) return;
+  document.getElementById('fp-img').src = d.img;
+  document.getElementById('fp-eyebrow').innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="var(--aqua)" stroke-width="2" width="13" height="13"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 002-2V2M7 2v20"/></svg> ${d.eyebrow}`;
+  document.getElementById('fp-title').textContent = d.title;
+  document.getElementById('fp-lead').innerHTML = d.lead;
+  document.getElementById('fp-facts').innerHTML = d.facts.join('');
+  document.getElementById('fp-ingredients').innerHTML = d.ingredients.map(ingChip).join('');
+  document.getElementById('fp-steps').innerHTML = d.steps.join('');
+  document.getElementById('fp-tips').textContent = d.tips;
+  openPop('foodPopup');
+}
 </script>
+
 </body>
 </html>
